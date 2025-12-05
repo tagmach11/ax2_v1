@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AX2 마이페이지</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 헤더 */
+        .header {
+            background: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a9eff;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: #666666;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-link.active {
+            color: #4a9eff;
+            background: #f0f7ff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 
+        
+        
+        공간 정보 */
+        .storage-info {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .storage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .storage-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .storage-usage {
+            font-size: 16px;
+            color: #666666;
+        }
+
+        .storage-bar-container {
+            width: 100%;
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .storage-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4a9eff 0%, #357abd 100%);
+            transition: width 0.3s;
+            border-radius: 6px;
+        }
+
+        .storage-bar.warning {
+            background: linear-gradient(90deg, #ffa500 0%, #ff8c00 100%);
+        }
+
+        .storage-bar.danger {
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+
+        .storage-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #999999;
+        }
+
+        /* 영상 목록 */
+        .videos-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #d0d0d0;
+            background: #ffffff;
+            color: #666666;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .filter-btn.active {
+            background: #4a9eff;
+            color: #ffffff;
+            border-color: #4a9eff;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #4a9eff;
+        }
+
+        .video-card:hover::after {
+            content: '클릭하여 편집';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(74, 158, 255, 0.9);
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999999;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .video-info {
+            padding: 16px;
+        }
+
+        .video-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .video-meta {
+            font-size: 13px;
+            color: #999999;
+            margin-bottom: 12px;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            background: #ffffff;
+            color: #666666;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .action-btn.primary {
+            background: #4a9eff;
+            color: #ffffff;
+            border-color: #4a9eff;
+        }
+
+        .action-btn.primary:hover {
+            background: #357abd;
+        }
+
+        .action-btn.danger {
+            background: #ffffff;
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .action-btn.danger:hover {
+            background: #fff5f5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+        }
+
+        /* 공유 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999999;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #333333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            border-color: #4a9eff;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #ffffff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            border-color: #4a9eff;
+        }
+
+        .link-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .link-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 13px;
+            background: #f5f5f5;
+        }
+
+        .copy-btn {
+            padding: 10px 20px;
+            background: #4a9eff;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #357abd;
+        }
+
+        .copy-btn.copied {
+            background: #4caf50;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #4a9eff;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #357abd;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666666;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .expiry-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #fff3cd;
+            color: #856404;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .expiry-badge.warning {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo" onclick="location.href='lecture.html'">AX2</div>
+            <a href="lecture.html" class="nav-link">강의</a>
+            <a href="mypage.html" class="nav-link active">마이페이지</a>
+        </div>
+        <div class="header-right">
+            <a href="login.html" class="login-btn">로그인</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 저장공간 정보 -->
+        <div class="storage-info">
+            <div class="storage-header">
+                <div class="storage-title">저장공간</div>
+                <div class="storage-usage">
+                    <span id="used-storage">0</span> GB / <span id="total-storage">10</span> GB
+                </div>
+            </div>
+            <div class="storage-bar-container">
+                <div class="storage-bar" id="storage-bar" style="width: 0%"></div>
+            </div>
+            <div class="storage-details">
+                <span>사용 중: <span id="used-detail">0 GB</span></span>
+                <span>남은 공간: <span id="remaining-detail">10 GB</span></span>
+            </div>
+        </div>
+
+        <!-- 영상 목록 -->
+        <div class="videos-section">
+            <div class="section-header">
+                <div class="section-title">최근 강의</div>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">전체</button>
+                    <button class="filter-btn" data-filter="recent">최근</button>
+                    <button class="filter-btn" data-filter="expiring">만료 예정</button>
+                </div>
+            </div>
+            <div class="video-grid" id="video-grid">
+                <!-- 영상 카드들이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 편집 모달 -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">강의 편집</div>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">강의 제목</label>
+                <input type="text" class="form-input" id="edit-title" placeholder="강의 제목을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label class="form-label">설명</label>
+                <textarea class="form-input" id="edit-description" rows="4" placeholder="강의 설명을 입력하세요"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">태그</label>
+                <input type="text" class="form-input" id="edit-tags" placeholder="태그를 쉼표로 구분하여 입력하세요">
+            </div>
+            <div class="form-group">
+                <label class="form-label">카테고리</label>
+                <select class="form-select" id="edit-category">
+                    <option value="">카테고리 선택</option>
+                    <option value="business">비즈니스</option>
+                    <option value="education">교육</option>
+                    <option value="technology">기술</option>
+                    <option value="marketing">마케팅</option>
+                    <option value="other">기타</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeEditModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveEdit()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 공유 모달 -->
+    <div class="modal" id="share-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">영상 공유</div>
+                <button class="modal-close" onclick="closeShareModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">공유 링크</label>
+                <div class="link-container">
+                    <input type="text" class="link-input" id="share-link" readonly>
+                    <button class="copy-btn" onclick="copyShareLink()">복사</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">권한 설정</label>
+                <select class="form-select" id="share-permission">
+                    <option value="view">보기만 가능</option>
+                    <option value="download">다운로드 가능</option>
+                    <option value="edit">편집 가능</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">만료 기간</label>
+                <select class="form-select" id="share-expiry">
+                    <option value="1">1일</option>
+                    <option value="7" selected>7일</option>
+                    <option value="30">30일</option>
+                    <option value="never">만료 없음</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeShareModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveShareSettings()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 저장공간 제한 (GB)
+        const STORAGE_LIMIT = 10; // GB
+        let usedStorage = 0; // GB
+        let videos = []; // 저장된 영상 목록
+
+        // 로컬 스토리지에서 데이터 로드
+        function loadData() {
+            const savedVideos = localStorage.getItem('savedVideos');
+            const savedStorage = localStorage.getItem('usedStorage');
+            
+            if (savedVideos) {
+                videos = JSON.parse(savedVideos);
+            }
+            
+            if (savedStorage) {
+                usedStorage = parseFloat(savedStorage);
+            }
+            
+            updateStorageDisplay();
+            renderVideos();
+        }
+
+        // 저장공간 표시 업데이트
+        function updateStorageDisplay() {
+            const percentage = (usedStorage / STORAGE_LIMIT) * 100;
+            const storageBar = document.getElementById('storage-bar');
+            const usedStorageEl = document.getElementById('used-storage');
+            const totalStorageEl = document.getElementById('total-storage');
+            const usedDetailEl = document.getElementById('used-detail');
+            const remainingDetailEl = document.getElementById('remaining-detail');
+
+            usedStorageEl.textContent = usedStorage.toFixed(2);
+            totalStorageEl.textContent = STORAGE_LIMIT;
+            usedDetailEl.textContent = usedStorage.toFixed(2) + ' GB';
+            remainingDetailEl.textContent = (STORAGE_LIMIT - usedStorage).toFixed(2) + ' GB';
+
+            storageBar.style.width = percentage + '%';
+            
+            // 경고 색상 적용
+            if (percentage >= 90) {
+                storageBar.className = 'storage-bar danger';
+            } else if (percentage >= 70) {
+                storageBar.className = 'storage-bar warning';
+            } else {
+                storageBar.className = 'storage-bar';
+            }
+        }
+
+        // 영상 목록 렌더링
+        function renderVideos(filter = 'all') {
+            const videoGrid = document.getElementById('video-grid');
+            
+            if (videos.length === 0) {
+                videoGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">📹</div>
+                        <div class="empty-state-text">저장된 영상이 없습니다</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // 기본적으로 최근 순으로 정렬 (savedAt 기준 내림차순)
+            let sortedVideos = videos.slice().sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+            
+            let filteredVideos = sortedVideos;
+            
+            if (filter === 'recent') {
+                filteredVideos = sortedVideos.slice(0, 10);
+            } else if (filter === 'expiring') {
+                const now = new Date();
+                filteredVideos = sortedVideos.filter(video => {
+                    if (!video.expiryDate) return false;
+                    const expiry = new Date(video.expiryDate);
+                    const daysUntilExpiry = (expiry - now) / (1000 * 60 * 60 * 24);
+                    return daysUntilExpiry <= 7 && daysUntilExpiry > 0;
+                });
+            }
+
+            // 원본 배열에서의 인덱스를 찾기 위해 ID로 매핑
+            const videoIdMap = new Map();
+            videos.forEach((v, idx) => videoIdMap.set(v.id, idx));
+
+            videoGrid.innerHTML = filteredVideos.map((video) => {
+                const originalIndex = videoIdMap.get(video.id);
+                const savedDate = new Date(video.savedAt);
+                const expiryDate = video.expiryDate ? new Date(video.expiryDate) : null;
+                const now = new Date();
+                const daysUntilExpiry = expiryDate ? Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24)) : null;
+                
+                let expiryBadge = '';
+                if (expiryDate) {
+                    if (daysUntilExpiry <= 0) {
+                        expiryBadge = '<span class="expiry-badge warning">만료됨</span>';
+                    } else if (daysUntilExpiry <= 3) {
+                        expiryBadge = `<span class="expiry-badge warning">${daysUntilExpiry}일 후 만료</span>`;
+                    } else if (daysUntilExpiry <= 7) {
+                        expiryBadge = `<span class="expiry-badge">${daysUntilExpiry}일 후 만료</span>`;
+                    }
+                }
+
+                return `
+                    <div class="video-card" onclick="editVideo('${video.id}')" data-video-id="${video.id}">
+                        <div class="video-thumbnail">
+                            영상 미리보기
+                            <div class="video-duration">${formatDuration(video.duration)}</div>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}${expiryBadge}</div>
+                            ${video.description ? `<div class="video-description" style="font-size: 13px; color: #666666; margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${video.description}</div>` : ''}
+                            <div class="video-meta">
+                                저장일: ${formatDate(savedDate)}<br>
+                                크기: ${video.size.toFixed(2)} GB
+                                ${video.category ? `<br>카테고리: ${getCategoryName(video.category)}` : ''}
+                            </div>
+                            <div class="video-actions" onclick="event.stopPropagation()">
+                                <button class="action-btn primary" onclick="downloadVideo(${originalIndex})">다운로드</button>
+                                <button class="action-btn" onclick="shareVideo(${originalIndex})">공유</button>
+                                <button class="action-btn danger" onclick="deleteVideo(${originalIndex})">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 날짜 포맷
+        function formatDate(date) {
+            return date.toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // 시간 포맷
+        function formatDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${minutes}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // 카테고리 이름 반환
+        function getCategoryName(category) {
+            const categories = {
+                'business': '비즈니스',
+                'education': '교육',
+                'technology': '기술',
+                'marketing': '마케팅',
+                'other': '기타'
+            };
+            return categories[category] || category;
+        }
+
+        // 영상 다운로드
+        function downloadVideo(index) {
+            event.stopPropagation(); // 카드 클릭 이벤트 방지
+            const video = videos[index];
+            // 실제 구현 시 서버에서 영상 파일을 다운로드
+            alert(`"${video.title}" 다운로드를 시작합니다.`);
+            // 여기에 실제 다운로드 로직 추가
+        }
+
+        // 영상 공유
+        let currentShareIndex = -1;
+        function shareVideo(index) {
+            event.stopPropagation(); // 카드 클릭 이벤트 방지
+            currentShareIndex = index;
+            const video = videos[index];
+            const shareLink = `${window.location.origin}/share/${video.id}`;
+            document.getElementById('share-link').value = shareLink;
+            document.getElementById('share-modal').classList.add('show');
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.remove('show');
+        }
+
+        function copyShareLink() {
+            const linkInput = document.getElementById('share-link');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const copyBtn = document.querySelector('.copy-btn');
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '복사됨!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }
+
+        function saveShareSettings() {
+            if (currentShareIndex === -1) return;
+            
+            const video = videos[currentShareIndex];
+            video.sharePermission = document.getElementById('share-permission').value;
+            video.shareExpiry = document.getElementById('share-expiry').value;
+            
+            // 만료일 계산
+            if (video.shareExpiry !== 'never') {
+                const expiryDays = parseInt(video.shareExpiry);
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + expiryDays);
+                video.shareExpiryDate = expiryDate.toISOString();
+            }
+            
+            saveData();
+            closeShareModal();
+            renderVideos();
+            alert('공유 설정이 저장되었습니다.');
+        }
+
+        // 영상 편집 - 번역 편집 페이지로 이동
+        function editVideo(videoId) {
+            window.location.href = `edit.html?id=${videoId}`;
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.remove('show');
+            currentEditVideoId = null;
+        }
+
+        function saveEdit() {
+            if (!currentEditVideoId) return;
+
+            const video = videos.find(v => v.id === currentEditVideoId);
+            if (!video) return;
+
+            // 편집된 내용 저장
+            video.title = document.getElementById('edit-title').value.trim() || video.title;
+            video.description = document.getElementById('edit-description').value.trim();
+            
+            // 태그 처리
+            const tagsInput = document.getElementById('edit-tags').value.trim();
+            video.tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+            
+            video.category = document.getElementById('edit-category').value;
+            video.updatedAt = new Date().toISOString();
+
+            // 데이터 저장
+            saveData();
+            closeEditModal();
+            renderVideos();
+            
+            alert('강의 정보가 저장되었습니다.');
+        }
+
+        // 영상 삭제
+        function deleteVideo(index) {
+            event.stopPropagation(); // 카드 클릭 이벤트 방지
+            if (!confirm('정말 이 영상을 삭제하시겠습니까?')) return;
+            
+            const video = videos[index];
+            usedStorage -= video.size;
+            videos.splice(index, 1);
+            
+            saveData();
+            updateStorageDisplay();
+            renderVideos();
+        }
+
+        // 데이터 저장
+        function saveData() {
+            localStorage.setItem('savedVideos', JSON.stringify(videos));
+            localStorage.setItem('usedStorage', usedStorage.toString());
+        }
+
+        // 필터 버튼 이벤트
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                renderVideos(this.dataset.filter);
+            });
+        });
+
+        // 자동 삭제 체크 (만료된 영상 삭제)
+        function checkAndDeleteExpired() {
+            const now = new Date();
+            let deleted = false;
+            
+            videos = videos.filter(video => {
+                if (video.expiryDate) {
+                    const expiry = new Date(video.expiryDate);
+                    if (expiry <= now) {
+                        usedStorage -= video.size;
+                        deleted = true;
+                        return false;
+                    }
+                }
+                return true;
+            });
+            
+            if (deleted) {
+                saveData();
+                updateStorageDisplay();
+                renderVideos();
+            }
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('edit-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditModal();
+            }
+        });
+
+        document.getElementById('share-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeShareModal();
+            }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeEditModal();
+                closeShareModal();
+            }
+        });
+
+        // 초기화
+        loadData();
+        checkAndDeleteExpired();
+        
+        // 주기적으로 만료된 영상 체크 (1시간마다)
+        setInterval(checkAndDeleteExpired, 60 * 60 * 1000);
+    </script>
+</body>
+</html>
+

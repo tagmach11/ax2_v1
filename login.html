@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AX2 - 로그인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* 좌측 보라색 영역 */
+        .left-section {
+            flex: 2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50px, -50px) rotate(360deg);
+            }
+        }
+
+        .left-content {
+            text-align: center;
+            max-width: 600px;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-headline {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .sub-headline {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 60px;
+            opacity: 0.95;
+        }
+
+        .feature-box {
+            background: #000000;
+            border-radius: 16px;
+            padding: 40px 60px;
+            margin: 40px 0;
+            display: inline-block;
+        }
+
+        .feature-text {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .feature-text .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 18px;
+            font-weight: 300;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-top: 40px;
+        }
+
+        /* 우측 흰색 영역 */
+        .right-section {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333333;
+            background: #ffffff;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .language-selector:hover {
+            background: #f5f5f5;
+            border-color: #667eea;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 120px;
+            display: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .language-dropdown.show {
+            display: block;
+            animation: slideDown 0.2s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-option {
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+
+        .language-option:hover {
+            background: #f5f5f5;
+        }
+
+        .language-option.active {
+            background: #f0f7ff;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: #ffffff;
+            color: #666666;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #f5f5f5;
+            color: #333333;
+        }
+
+        .login-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 8px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: #999999;
+            margin-bottom: 40px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #333333;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background: #f5f5f5;
+            border-color: #d0d0d0;
+        }
+
+        .social-btn.google {
+            border-color: #e0e0e0;
+        }
+
+        .social-btn.kakao {
+            background: #FEE500;
+            border-color: #FEE500;
+            color: #000000;
+        }
+
+        .social-btn.kakao:hover {
+            background: #FDD835;
+            border-color: #FDD835;
+        }
+
+        .social-btn.naver {
+            background: #03C75A;
+            border-color: #03C75A;
+            color: #ffffff;
+        }
+
+        .social-btn.naver:hover {
+            background: #02B350;
+            border-color: #02B350;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .social-btn.google .social-icon {
+            background: #4285F4;
+            color: #ffffff;
+        }
+
+        .social-btn.kakao .social-icon {
+            background: #000000;
+            color: #FEE500;
+        }
+
+        .social-btn.naver .social-icon {
+            background: #ffffff;
+            color: #03C75A;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+
+        .email-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .email-input.error {
+            border-color: #ff6b6b;
+        }
+
+        .email-input.error:focus {
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .email-input::placeholder {
+            color: #999999;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: -12px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+
+        .continue-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .continue-btn.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .social-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .social-btn.loading::after {
+            content: '';
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #999999;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 성공 메시지 */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: #ffffff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* 기능 설명 */
+        .feature-list {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            opacity: 0.9;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+            }
+
+            .left-section {
+                flex: 1;
+                padding: 40px 20px;
+            }
+
+            .right-section {
+                flex: 1;
+            }
+
+            .main-headline {
+                font-size: 36px;
+            }
+
+            .sub-headline {
+                font-size: 20px;
+            }
+
+            .feature-box {
+                padding: 30px 40px;
+            }
+
+            .feature-text {
+                font-size: 24px;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-headline {
+                font-size: 28px;
+            }
+
+            .sub-headline {
+                font-size: 18px;
+            }
+
+            .feature-text {
+                font-size: 20px;
+            }
+
+            .welcome-title {
+                font-size: 24px;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 좌측 보라색 영역 -->
+    <div class="left-section">
+        <div class="left-content">
+            <h1 class="main-headline" data-i18n="main-headline">만들고, 번역하고, 소통하세요</h1>
+            <p class="sub-headline" data-i18n="sub-headline">한 번의 클릭으로 언어의 장벽을 넘어보세요</p>
+            
+            <p class="tagline" data-i18n="tagline">
+                고품질 영상, 촬영 불필요 - 간단한 클릭 한 번으로 복제하고 번역하세요.
+            </p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <span data-i18n="feature1">실시간 음성 인식 및 번역</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <span data-i18n="feature2">다국어 자막 자동 생성</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💾</div>
+                    <span data-i18n="feature3">강의 자동 저장 및 관리</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <span data-i18n="feature4">간편한 공유 및 다운로드</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 성공 메시지 -->
+    <div class="success-message" id="success-message">
+        로그인 성공! 강의 페이지로 이동합니다...
+    </div>
+
+    <!-- 우측 흰색 영역 -->
+    <div class="right-section">
+        <div class="top-controls">
+            <div class="language-selector" id="language-selector">
+                <span id="current-lang">KO</span>
+                <span>▼</span>
+                <div class="language-dropdown" id="language-dropdown">
+                    <div class="language-option active" data-lang="KO">한국어</div>
+                    <div class="language-option" data-lang="EN">English</div>
+                    <div class="language-option" data-lang="JA">日本語</div>
+                    <div class="language-option" data-lang="ZH">中文</div>
+                </div>
+            </div>
+            <div class="close-btn" onclick="closeWindow()">✕</div>
+        </div>
+
+        <div class="login-content">
+            <h2 class="welcome-title" data-i18n="welcome-title">AX2에 오신 것을 환영합니다</h2>
+            <p class="welcome-subtitle" data-i18n="welcome-subtitle">한 번의 클릭으로 언어를 넘어서세요</p>
+
+            <div class="social-login">
+                <button class="social-btn google" onclick="loginWithGoogle()">
+                    <div class="social-icon">G</div>
+                    <span data-i18n="google-btn">Google로 시작하기</span>
+                </button>
+                <button class="social-btn kakao" onclick="loginWithKakao()">
+                    <div class="social-icon">K</div>
+                    <span data-i18n="kakao-btn">카카오톡으로 시작하기</span>
+                </button>
+                <button class="social-btn naver" onclick="loginWithNaver()">
+                    <div class="social-icon">N</div>
+                    <span data-i18n="naver-btn">네이버로 시작하기</span>
+                </button>
+            </div>
+
+            <div class="divider">
+                <span data-i18n="or">또는</span>
+            </div>
+
+            <form class="email-form" onsubmit="handleEmailLogin(event)">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    data-i18n-placeholder="email-placeholder"
+                    placeholder="이메일을 입력해 주세요."
+                    required
+                    id="email-input"
+                    autocomplete="email"
+                >
+                <div class="error-message" id="email-error" data-i18n="email-error">올바른 이메일 주소를 입력해주세요.</div>
+                <button type="submit" class="continue-btn" id="continue-btn" data-i18n="continue-btn">계속</button>
+            </form>
+
+            <div class="signup-link">
+                <span data-i18n="signup-question">아직 계정이 없으신가요?</span> <a href="signup.html" onclick="showSignup()" data-i18n="signup-link">무료 회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 언어별 텍스트 데이터
+        const translations = {
+            'KO': {
+                'main-headline': '만들고, 번역하고, 소통하세요',
+                'sub-headline': '한 번의 클릭으로 언어의 장벽을 넘어보세요',
+                'tagline': '고품질 영상, 촬영 불필요 - 간단한 클릭 한 번으로 복제하고 번역하세요.',
+                'feature1': '실시간 음성 인식 및 번역',
+                'feature2': '다국어 자막 자동 생성',
+                'feature3': '강의 자동 저장 및 관리',
+                'feature4': '간편한 공유 및 다운로드',
+                'welcome-title': 'AX2에 오신 것을 환영합니다',
+                'welcome-subtitle': '한 번의 클릭으로 언어를 넘어서세요',
+                'google-btn': 'Google로 시작하기',
+                'kakao-btn': '카카오톡으로 시작하기',
+                'naver-btn': '네이버로 시작하기',
+                'or': '또는',
+                'email-placeholder': '이메일을 입력해 주세요.',
+                'email-error': '올바른 이메일 주소를 입력해주세요.',
+                'continue-btn': '계속',
+                'signup-question': '아직 계정이 없으신가요?',
+                'signup-link': '무료 회원가입',
+                'success-message': '로그인 성공! 강의 페이지로 이동합니다...',
+                'login-error': '로그인 중 오류가 발생했습니다. 다시 시도해주세요.'
+            },
+            'EN': {
+                'main-headline': 'Create, Translate, and Interact',
+                'sub-headline': 'One click to break language barriers',
+                'tagline': 'High-Quality Videos, No Filming Needed - Clone and Translate with One Simple Click.',
+                'feature1': 'Real-time Voice Recognition & Translation',
+                'feature2': 'Automatic Multilingual Subtitle Generation',
+                'feature3': 'Automatic Lecture Storage & Management',
+                'feature4': 'Easy Sharing & Download',
+                'welcome-title': 'Welcome to AX2',
+                'welcome-subtitle': 'Transcend Languages with One Click',
+                'google-btn': 'Continue with Google',
+                'kakao-btn': 'Continue with Kakao',
+                'naver-btn': 'Continue with Naver',
+                'or': 'OR',
+                'email-placeholder': 'Enter your email',
+                'email-error': 'Please enter a valid email address.',
+                'continue-btn': 'Continue',
+                'signup-question': "Don't have an account yet?",
+                'signup-link': 'Free Sign Up',
+                'success-message': 'Login successful! Redirecting to lecture page...',
+                'login-error': 'An error occurred during login. Please try again.'
+            },
+            'JA': {
+                'main-headline': 'Create, Translate, and Interact',
+                'sub-headline': 'ワンクリックで言語の壁を越える',
+                'tagline': '高品質な動画、撮影不要 - ワンクリックで複製・翻訳',
+                'feature1': 'リアルタイム音声認識と翻訳',
+                'feature2': '多言語字幕の自動生成',
+                'feature3': '講義の自動保存と管理',
+                'feature4': '簡単な共有とダウンロード',
+                'welcome-title': 'AX2へようこそ',
+                'welcome-subtitle': 'ワンクリックで言語を超越',
+                'google-btn': 'Googleで始める',
+                'kakao-btn': 'カカオトークで始める',
+                'naver-btn': 'ネイバーで始める',
+                'or': 'または',
+                'email-placeholder': 'メールアドレスを入力してください',
+                'email-error': '有効なメールアドレスを入力してください。',
+                'continue-btn': '続ける',
+                'signup-question': 'まだアカウントをお持ちでないですか？',
+                'signup-link': '無料会員登録',
+                'success-message': 'ログイン成功！講義ページに移動します...',
+                'login-error': 'ログイン中にエラーが発生しました。再度お試しください。'
+            },
+            'ZH': {
+                'main-headline': 'Create, Translate, and Interact',
+                'sub-headline': '一键打破语言障碍',
+                'tagline': '高质量视频，无需拍摄 - 一键克隆和翻译',
+                'feature1': '实时语音识别和翻译',
+                'feature2': '多语言字幕自动生成',
+                'feature3': '课程自动保存和管理',
+                'feature4': '便捷的共享和下载',
+                'welcome-title': '欢迎使用 AX2',
+                'welcome-subtitle': '一键超越语言',
+                'google-btn': '使用 Google 继续',
+                'kakao-btn': '使用 Kakao 继续',
+                'naver-btn': '使用 Naver 继续',
+                'or': '或',
+                'email-placeholder': '请输入您的邮箱',
+                'email-error': '请输入有效的邮箱地址。',
+                'continue-btn': '继续',
+                'signup-question': '还没有账户？',
+                'signup-link': '免费注册',
+                'success-message': '登录成功！正在跳转到课程页面...',
+                'login-error': '登录过程中发生错误。请重试。'
+            }
+        };
+
+        // 언어 선택기
+        const languageSelector = document.getElementById('language-selector');
+        const languageDropdown = document.getElementById('language-dropdown');
+        const currentLangSpan = document.getElementById('current-lang');
+        const languageOptions = document.querySelectorAll('.language-option');
+        
+        let currentLang = 'KO';
+
+        // 페이지 번역 함수
+        function translatePage(lang) {
+            const langData = translations[lang];
+            if (!langData) return;
+
+            // 모든 data-i18n 속성을 가진 요소 번역
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (langData[key]) {
+                    element.textContent = langData[key];
+                }
+            });
+
+            // placeholder 번역
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (langData[key]) {
+                    element.placeholder = langData[key];
+                }
+            });
+        }
+
+        // 언어 선택기 토글
+        languageSelector.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('show');
+        });
+
+        // 언어 옵션 선택
+        languageOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const lang = this.dataset.lang;
+                currentLang = lang;
+                currentLangSpan.textContent = lang;
+                
+                // 활성 상태 업데이트
+                languageOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                languageDropdown.classList.remove('show');
+                
+                // 페이지 번역
+                translatePage(lang);
+            });
+        });
+
+        // 외부 클릭 시 드롭다운 닫기
+        document.addEventListener('click', function() {
+            languageDropdown.classList.remove('show');
+        });
+
+        // 이메일 검증
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // 에러 표시
+        function showError(input, message) {
+            input.classList.add('error');
+            const errorDiv = document.getElementById('email-error');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+
+        // 에러 제거
+        function clearError(input) {
+            input.classList.remove('error');
+            document.getElementById('email-error').classList.remove('show');
+        }
+
+        // 로딩 상태 설정
+        function setLoading(button, isLoading) {
+            if (isLoading) {
+                button.classList.add('loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('loading');
+                button.disabled = false;
+            }
+        }
+
+        // 성공 메시지 표시
+        function showSuccessMessage(messageKey) {
+            const successMsg = document.getElementById('success-message');
+            const message = translations[currentLang][messageKey] || translations['KO'][messageKey];
+            successMsg.textContent = message;
+            successMsg.classList.add('show');
+            
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+        }
+
+        // 소셜 로그인 함수들
+        async function loginWithGoogle() {
+            const btn = event.target.closest('.social-btn');
+            setLoading(btn, true);
+            
+            try {
+                console.log('Google 로그인 시작');
+                // 실제 구현 시 Google OAuth 연동
+                // const response = await fetch('/auth/google');
+                
+                // 시뮬레이션: 1초 대기
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 성공 메시지 표시
+                showSuccessMessage('success-message');
+                
+                // 성공 시 강의 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = 'lecture.html';
+                }, 1500);
+            } catch (error) {
+                console.error('Google 로그인 오류:', error);
+                alert(translations[currentLang]['login-error']);
+            } finally {
+                setLoading(btn, false);
+            }
+        }
+
+        async function loginWithKakao() {
+            const btn = event.target.closest('.social-btn');
+            setLoading(btn, true);
+            
+            try {
+                console.log('카카오톡 로그인 시작');
+                // 실제 구현 시 카카오톡 OAuth 연동
+                // const response = await fetch('/auth/kakao');
+                
+                // 시뮬레이션: 1초 대기
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 성공 메시지 표시
+                showSuccessMessage('카카오톡 로그인 성공! 강의 페이지로 이동합니다...');
+                
+                // 성공 시 강의 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = 'lecture.html';
+                }, 1500);
+            } catch (error) {
+                console.error('카카오톡 로그인 오류:', error);
+                alert(translations[currentLang]['login-error']);
+            } finally {
+                setLoading(btn, false);
+            }
+        }
+
+        async function loginWithNaver() {
+            const btn = event.target.closest('.social-btn');
+            setLoading(btn, true);
+            
+            try {
+                console.log('네이버 로그인 시작');
+                // 실제 구현 시 네이버 OAuth 연동
+                // const response = await fetch('/auth/naver');
+                
+                // 시뮬레이션: 1초 대기
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 성공 메시지 표시
+                showSuccessMessage('네이버 로그인 성공! 강의 페이지로 이동합니다...');
+                
+                // 성공 시 강의 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = 'lecture.html';
+                }, 1500);
+            } catch (error) {
+                console.error('네이버 로그인 오류:', error);
+                alert(translations[currentLang]['login-error']);
+            } finally {
+                setLoading(btn, false);
+            }
+        }
+
+        // 이메일 로그인
+        async function handleEmailLogin(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('email-input');
+            const continueBtn = document.getElementById('continue-btn');
+            const email = emailInput.value.trim();
+            
+            // 에러 제거
+            clearError(emailInput);
+            
+            // 이메일 검증
+            if (!email) {
+                showError(emailInput, '이메일을 입력해주세요.');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showError(emailInput, '올바른 이메일 주소를 입력해주세요.');
+                return;
+            }
+            
+            // 로딩 시작
+            setLoading(continueBtn, true);
+            
+            try {
+                console.log('이메일 로그인:', email);
+                // 실제 구현 시 이메일 인증 또는 로그인 처리
+                // const response = await fetch('/auth/email', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ email })
+                // });
+                
+                // 시뮬레이션: 1.5초 대기
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // 성공 메시지 표시
+                showSuccessMessage('success-message');
+                
+                // 성공 시 강의 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = 'lecture.html';
+                }, 1500);
+            } catch (error) {
+                console.error('이메일 로그인 오류:', error);
+                showError(emailInput, '로그인 중 오류가 발생했습니다. 다시 시도해주세요.');
+            } finally {
+                setLoading(continueBtn, false);
+            }
+        }
+
+        // 이메일 입력 시 실시간 검증
+        document.getElementById('email-input').addEventListener('input', function() {
+            if (this.value.trim()) {
+                clearError(this);
+            }
+        });
+
+        // 회원가입 표시
+        function showSignup() {
+            event.preventDefault();
+            window.location.href = 'signup.html';
+        }
+
+        // 닫기 버튼
+        function closeWindow() {
+            if (window.opener) {
+                window.close();
+            } else {
+                if (confirm('로그인을 취소하시겠습니까?')) {
+                    window.location.href = 'lecture.html';
+                }
+            }
+        }
+
+        // DOM 로드 시 한국어로 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            translatePage('KO');
+        });
+
+        // 페이지 로드 시 애니메이션
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+

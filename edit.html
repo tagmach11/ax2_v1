@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AX2 - 강의 번역 편집</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333333;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 */
+        .header {
+            background: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a9eff;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            color: #666666;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .plan-info {
+            font-size: 13px;
+            color: #666666;
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border-radius: 6px;
+        }
+
+        .plan-info .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .login-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* 좌측 편집 영역 */
+        .edit-section {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+
+        .edit-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .title-editor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .title-input {
+            flex: 1;
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            outline: none;
+            color: #333333;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .title-input:focus {
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .edit-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            color: #666666;
+            transition: color 0.2s;
+        }
+
+        .edit-icon:hover {
+            color: #667eea;
+        }
+
+        .language-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-tab {
+            padding: 8px 16px;
+            border: 1px solid #e0e0e0;
+            background: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .lang-tab.active {
+            background: #667eea;
+            color: #ffffff;
+            border-color: #667eea;
+        }
+
+        .lang-flag {
+            font-size: 18px;
+        }
+
+        .transcription-list {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .transcription-item {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .transcription-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+
+        .segment-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .speaker-icon {
+            width: 32px;
+            height: 32px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .speaker-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: #999999;
+            margin-left: auto;
+        }
+
+        .text-content {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .text-editor {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .text-label {
+            font-size: 12px;
+            color: #999999;
+            font-weight: 500;
+        }
+
+        .text-input {
+            width: 100%;
+            min-height: 60px;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .text-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .arrow-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 20px;
+            margin-top: 24px;
+        }
+
+        /* 우측 비디오 영역 */
+        .video-section {
+            flex: 1;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .video-tabs {
+            display: flex;
+            background: #1a1a1a;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .video-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #999999;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .video-tab.active {
+            color: #ffffff;
+            border-bottom-color: #667eea;
+        }
+
+        .video-tab:hover {
+            color: #ffffff;
+            background: #2a2a2a;
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .video-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: #999999;
+            font-size: 18px;
+        }
+
+        .subtitle-overlay {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        .video-controls {
+            background: #1a1a1a;
+            padding: 16px 20px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            border: none;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .play-btn:hover {
+            background: #764ba2;
+        }
+
+        .time-display {
+            color: #ffffff;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #667eea;
+            border-radius: 3px;
+            transition: width 0.1s;
+        }
+
+        .control-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .control-icon {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .control-icon:hover {
+            background: #2a2a2a;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .apply-btn-inline {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+        }
+
+        .apply-btn-inline:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 스크롤바 스타일 */
+        .transcription-list::-webkit-scrollbar,
+        .edit-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .transcription-list::-webkit-scrollbar-track,
+        .edit-section::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        .transcription-list::-webkit-scrollbar-thumb,
+        .edit-section::-webkit-scrollbar-thumb {
+            background: #d0d0d0;
+            border-radius: 4px;
+        }
+
+        .transcription-list::-webkit-scrollbar-thumb:hover,
+        .edit-section::-webkit-scrollbar-thumb:hover {
+            background: #b0b0b0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo" onclick="location.href='mypage.html'">AX2</div>
+            <a href="mypage.html" class="back-btn">← 마이페이지로 돌아가기</a>
+        </div>
+        <div class="header-right">
+            <div class="plan-info">
+                <span class="highlight">Free</span> <span id="remaining-time">0분 남음</span>
+            </div>
+            <a href="login.html" class="login-btn">로그인</a>
+        </div>
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="main-content">
+        <!-- 좌측 편집 영역 -->
+        <div class="edit-section">
+            <div class="edit-header">
+                <div class="title-editor">
+                    <input type="text" class="title-input" id="video-title" value="강의 제목">
+                    <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </div>
+                <div class="language-tabs">
+                    <div class="lang-tab active" data-lang="ko">
+                        <span class="lang-flag">🇰🇷</span>
+                        <span>Korean</span>
+                    </div>
+                    <div class="lang-tab" data-lang="en">
+                        <span class="lang-flag">🇺🇸</span>
+                        <span>English</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transcription-list" id="transcription-list">
+                <!-- 텍스트 세그먼트들이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+
+        <!-- 우측 비디오 영역 -->
+        <div class="video-section">
+            <div class="video-tabs">
+                <button class="video-tab active" data-tab="original">원본</button>
+                <button class="video-tab" data-tab="translation">번역</button>
+            </div>
+
+            <div class="warning-banner">
+                편집한 내용은 자동으로 반영되지 않습니다. 완료 후 '변경사항 적용하기'를 눌러 적용해 주세요.
+            </div>
+
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div>비디오 플레이어</div>
+                </div>
+                <!-- 실제 사용 시 video 태그로 교체
+                <video class="video-player" controls id="video-player">
+                    <source src="" type="video/mp4">
+                </video>
+                -->
+                
+                <div class="subtitle-overlay" id="subtitle-overlay">
+                    자막이 여기에 표시됩니다
+                </div>
+            </div>
+
+            <div class="video-controls">
+                <div class="controls-row">
+                    <button class="play-btn" id="play-btn">▶</button>
+                    <span class="time-display" id="time-display">0:00:00</span>
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="control-icons">
+                        <button class="control-icon" id="caption-btn" title="자막">CC</button>
+                        <button class="control-icon" id="volume-btn" title="볼륨">🔊</button>
+                        <button class="control-icon" id="speed-btn" title="재생 속도">1x</button>
+                        <button class="control-icon" id="fullscreen-btn" title="전체화면">⛶</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn apply-btn-inline" onclick="applyChanges()">
+                        변경사항 적용하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL에서 비디오 ID 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('id');
+
+        let currentVideo = null;
+        let transcriptions = [];
+        let currentLang = 'ko';
+        let isPlaying = false;
+        let currentTime = 0;
+        let videoDuration = 59; // 초 단위
+
+        // 데이터 로드
+        function loadVideoData() {
+            const savedVideos = JSON.parse(localStorage.getItem('savedVideos') || '[]');
+            currentVideo = savedVideos.find(v => v.id === videoId);
+            
+            if (!currentVideo) {
+                alert('강의를 찾을 수 없습니다.');
+                window.location.href = 'mypage.html';
+                return;
+            }
+
+            // 제목 설정
+            document.getElementById('video-title').value = currentVideo.title || '강의 제목';
+
+            // 샘플 트랜스크립션 데이터 생성
+            transcriptions = currentVideo.transcriptions || generateSampleTranscriptions();
+            
+            renderTranscriptions();
+        }
+
+        // 샘플 트랜스크립션 생성
+        function generateSampleTranscriptions() {
+            return [
+                {
+                    id: 1,
+                    speaker: '화자 1',
+                    startTime: 0,
+                    endTime: 3.41,
+                    korean: '이 과자의 정체가 뭔지 아시는 분이 계시다면 제발 한 번만 도와주세요.',
+                    english: 'If anyone knows what this snack is, please, just help me out, for once.'
+                },
+                {
+                    id: 2,
+                    speaker: '화자 1',
+                    startTime: 3,
+                    endTime: 9,
+                    korean: '제가 저번에 두바이 초콜릿 맛을 과자를 하나를 얻어먹었는데 이게 이렇게 맛있을 줄 모르고 아무 데도 없이 껍데기를 버린 거예요.',
+                    english: 'I tried a Dubai chocolate-flavored snack the other day, but I had no idea it would be this good, so I threw away the wrapper without thinking.'
+                },
+                {
+                    id: 3,
+                    speaker: '화자 1',
+                    startTime: 9,
+                    endTime: 15,
+                    korean: '제가 기억하는 그 과자 맛을 똑같이 재현을 해볼게요. 먼저 이렇게 둥글고 짤막한 웨이퍼 재질의 과자였거든요.',
+                    english: "I'll try to recreate the snack exactly as I remember. First, it was a round, short, wafer-textured snack."
+                },
+                {
+                    id: 4,
+                    speaker: '화자 1',
+                    startTime: 15,
+                    endTime: 19,
+                    korean: '지금 여기에는 커피 크림이 채워져 있는데 그 과자에는 피스타치오 맛 크림이 채워져 있었거든요.',
+                    english: 'Now, this one is filled with coffee cream, but that snack had a pistachio cream filling.'
+                },
+                {
+                    id: 5,
+                    speaker: '화자 1',
+                    startTime: 19,
+                    endTime: 23.10,
+                    korean: '그래서 오늘은 피스타치오 맛 크림을 만들어서 이 과자에 채워넣어 볼게요.',
+                    english: 'So today, I\'ll make a pistachio cream and fill this snack with it.'
+                }
+            ];
+        }
+
+        // 트랜스크립션 렌더링
+        function renderTranscriptions() {
+            const list = document.getElementById('transcription-list');
+            
+            list.innerHTML = transcriptions.map(segment => {
+                const duration = (segment.endTime - segment.startTime).toFixed(2);
+                const startTime = formatTime(segment.startTime);
+                const endTime = formatTime(segment.endTime);
+                
+                return `
+                    <div class="transcription-item" data-segment-id="${segment.id}">
+                        <div class="segment-header">
+                            <div class="speaker-icon">${segment.speaker.charAt(segment.speaker.length - 1)}</div>
+                            <span class="speaker-name">${segment.speaker}</span>
+                            <span class="timestamp">${startTime} - ${endTime} ${duration}sec</span>
+                        </div>
+                        <div class="text-content">
+                            <div class="text-editor">
+                                <div class="text-label">Korean</div>
+                                <textarea class="text-input" data-lang="ko" data-segment-id="${segment.id}">${segment.korean}</textarea>
+                            </div>
+                            <div class="arrow-icon">→</div>
+                            <div class="text-editor">
+                                <div class="text-label">English</div>
+                                <textarea class="text-input" data-lang="en" data-segment-id="${segment.id}">${segment.english}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 텍스트 입력 이벤트
+            document.querySelectorAll('.text-input').forEach(input => {
+                input.addEventListener('input', function() {
+                    const segmentId = parseInt(this.dataset.segmentId);
+                    const lang = this.dataset.lang;
+                    const segment = transcriptions.find(s => s.id === segmentId);
+                    
+                    if (segment) {
+                        segment[lang === 'ko' ? 'korean' : 'english'] = this.value;
+                    }
+                });
+            });
+        }
+
+        // 시간 포맷
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            const ms = Math.floor((seconds % 1) * 100);
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+        }
+
+        // 언어 탭 전환
+        document.querySelectorAll('.lang-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentLang = this.dataset.lang;
+                // 언어에 따른 필터링 로직 추가 가능
+            });
+        });
+
+        // 비디오 탭 전환
+        document.querySelectorAll('.video-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.video-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const tabType = this.dataset.tab;
+                // 탭에 따른 비디오 모드 변경 로직 추가 가능
+            });
+        });
+
+        // 재생 버튼
+        document.getElementById('play-btn').addEventListener('click', function() {
+            isPlaying = !isPlaying;
+            this.textContent = isPlaying ? '⏸' : '▶';
+            // 실제 비디오 재생 로직 추가
+        });
+
+        // 진행 바 클릭
+        document.getElementById('progress-bar').addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            currentTime = videoDuration * percent;
+            updateProgress();
+            // 실제 비디오 시간 이동 로직 추가
+        });
+
+        // 진행 상태 업데이트
+        function updateProgress() {
+            const percent = (currentTime / videoDuration) * 100;
+            document.getElementById('progress-fill').style.width = percent + '%';
+            document.getElementById('time-display').textContent = formatTimeDisplay(currentTime);
+        }
+
+        // 시간 표시 포맷
+        function formatTimeDisplay(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${hours}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // 변경사항 적용
+        function applyChanges() {
+            if (!currentVideo) return;
+
+            // 제목 저장
+            currentVideo.title = document.getElementById('video-title').value;
+
+            // 트랜스크립션 저장
+            currentVideo.transcriptions = transcriptions;
+            currentVideo.updatedAt = new Date().toISOString();
+
+            // 로컬 스토리지에 저장
+            const savedVideos = JSON.parse(localStorage.getItem('savedVideos') || '[]');
+            const index = savedVideos.findIndex(v => v.id === videoId);
+            if (index !== -1) {
+                savedVideos[index] = currentVideo;
+                localStorage.setItem('savedVideos', JSON.stringify(savedVideos));
+            }
+
+            alert('변경사항이 적용되었습니다!');
+        }
+
+        // 초기화
+        if (videoId) {
+            loadVideoData();
+        } else {
+            alert('강의 ID가 없습니다.');
+            window.location.href = 'mypage.html';
+        }
+    </script>
+</body>
+</html>
+
