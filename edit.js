@@ -46,22 +46,40 @@
             if (!videoPlayer) return;
             
             // 비디오 URL 설정 (로컬 스토리지에서 가져온 비디오 URL 사용)
+            let videoSrc = null;
+            
             if (currentVideo && currentVideo.videoUrl) {
-                videoPlayer.src = currentVideo.videoUrl;
+                // Blob URL이 만료되었을 수 있으므로 확인
+                try {
+                    videoSrc = currentVideo.videoUrl;
+                    videoPlayer.src = videoSrc;
+                } catch (e) {
+                    console.error('비디오 URL 설정 오류:', e);
+                }
             } else if (currentVideo && currentVideo.file) {
                 // File 객체인 경우
                 const url = URL.createObjectURL(currentVideo.file);
+                videoSrc = url;
                 videoPlayer.src = url;
             } else {
                 // 비디오가 없으면 placeholder 표시
                 if (placeholder) {
                     placeholder.style.display = 'flex';
                 }
+                if (videoPlayer) {
+                    videoPlayer.style.display = 'none';
+                }
                 return;
             }
             
             // 비디오 메타데이터 로드
             videoPlayer.addEventListener('loadedmetadata', () => {
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+                if (videoPlayer) {
+                    videoPlayer.style.display = 'block';
+                }
                 videoDuration = videoPlayer.duration;
                 updateProgress();
             });
@@ -81,11 +99,18 @@
             });
             
             // 비디오 로드 오류
-            videoPlayer.addEventListener('error', () => {
+            videoPlayer.addEventListener('error', (e) => {
+                console.error('비디오 로드 오류:', e);
                 if (placeholder) {
                     placeholder.style.display = 'flex';
                 }
+                if (videoPlayer) {
+                    videoPlayer.style.display = 'none';
+                }
             });
+            
+            // 비디오 로드 시작
+            videoPlayer.load();
         }
 
         // 샘플 트랜스크립션 생성
