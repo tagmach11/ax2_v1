@@ -403,10 +403,10 @@ body {
 .drop-zone::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: -10px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -10px;
     background: linear-gradient(135deg, rgba(33, 150, 243, 0.05), rgba(156, 39, 176, 0.05));
     opacity: 0;
     transition: opacity 0.3s ease;
