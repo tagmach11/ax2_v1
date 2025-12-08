@@ -486,11 +486,13 @@ body {
 }
 
 .upload-icon {
-    font-size: 3.5rem;
+    width: 64px;
+    height: 64px;
     color: #9c27b0;
     animation: float-icon 3s ease-in-out infinite;
     will-change: transform;
     transform: translateZ(0); /* GPU 가속 */
+    filter: drop-shadow(0 4px 8px rgba(156, 39, 176, 0.2));
 }
 
 .drop-zone-text {
@@ -625,10 +627,12 @@ body {
 }
 
 .upload-icon {
-    font-size: 5.5rem;
+    width: 88px;
+    height: 88px;
     color: var(--blue);
     margin-bottom: 30px;
     animation: float-icon 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(33, 150, 243, 0.2));
 }
 
 @keyframes float-icon {
@@ -1806,7 +1810,8 @@ body {
     }
     
     .upload-icon {
-        font-size: 2.5rem;
+        width: 50px;
+        height: 50px;
     }
     
     .drop-zone-text {
@@ -1910,7 +1915,8 @@ body {
     }
     
     .upload-icon {
-        font-size: 2rem;
+        width: 40px;
+        height: 40px;
     }
     
     .drop-zone-text {

@@ -5,6 +5,28 @@
             box-sizing: border-box;
         }
 
+        /* 편집 페이지에서 사이드바 숨기기 */
+        .sidebar {
+            display: none !important;
+        }
+
+        .sidebar-overlay {
+            display: none !important;
+        }
+
+        .mobile-menu-btn {
+            display: none !important;
+        }
+
+        /* 편집 페이지에서 네비게이션 바 간격 줄이기 */
+        .glass-nav {
+            padding: 8px 0 !important;
+        }
+
+        .nav-content {
+            padding: 0 16px !important;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: #f5f5f5;
@@ -107,9 +129,9 @@
             flex: 1;
             display: flex;
             overflow: hidden;
-            margin-left: 280px;
-            margin-top: 70px;
-            height: calc(100vh - 70px);
+            margin-left: 0;
+            margin-top: 0;
+            height: 100vh;
             gap: 0;
         }
 
@@ -128,7 +150,7 @@
         }
 
         .video-title-display {
-            padding: 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #e0e0e0;
             background: #ffffff;
             flex-shrink: 0;
@@ -138,7 +160,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 8px;
         }
 
         .video-title-text {
@@ -178,7 +200,7 @@
         }
 
         .edit-header {
-            padding: 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #e0e0e0;
             background: #fafafa;
             flex-shrink: 0;
@@ -288,7 +310,7 @@
 
         .transcription-list {
             flex: 1;
-            padding: 20px;
+            padding: 12px 16px;
             overflow: visible;
             min-height: 0;
         }
@@ -297,8 +319,8 @@
             background: #fafafa;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 12px;
+            margin-bottom: 8px;
             transition: all 0.2s;
         }
 
@@ -310,8 +332,8 @@
         .segment-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .speaker-icon {
@@ -546,9 +568,9 @@
 
         /* 우측 비디오 영역 */
         .video-section {
-            flex: 1;
-            min-width: 400px;
-            width: 50%;
+            flex: 0 0 35%;
+            min-width: 300px;
+            max-width: 500px;
             background: #000000;
             display: flex;
             flex-direction: column;
@@ -594,9 +616,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             color: #667eea;
             transition: all 0.3s ease;
+            padding: 12px;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.2));
         }
         
         .video-drop-zone:hover .drop-zone-icon {
@@ -652,7 +675,7 @@
 
         .video-tab {
             flex: 1;
-            padding: 12px 20px;
+            padding: 8px 16px;
             background: transparent;
             border: none;
             color: #666666;
@@ -675,7 +698,7 @@
         .warning-banner {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
-            padding: 12px 20px;
+            padding: 8px 16px;
             font-size: 13px;
             text-align: center;
         }
@@ -743,7 +766,7 @@
 
         .video-controls {
             background: #ffffff;
-            padding: 16px 20px;
+            padding: 12px 16px;
             border-top: 1px solid #e0e0e0;
         }
 
@@ -813,6 +836,18 @@
             justify-content: center;
             border-radius: 4px;
             transition: background 0.2s;
+        }
+
+        .control-icon .volume-icon {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .control-icon .volume-wave {
+            opacity: 1;
+            transition: opacity 0.2s;
         }
 
         .control-icon:hover {

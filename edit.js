@@ -1036,7 +1036,24 @@
                 if (!videoPlayer) return;
                 isMuted = !isMuted;
                 videoPlayer.muted = isMuted;
-                this.textContent = isMuted ? '🔇' : '🔊';
+                const volumeIcon = this.querySelector('.volume-icon');
+                if (volumeIcon) {
+                    if (isMuted) {
+                        // 음소거 상태: X 표시 추가
+                        volumeIcon.innerHTML = `
+                            <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        `;
+                    } else {
+                        // 볼륨 ON 상태: 파동 표시
+                        volumeIcon.innerHTML = `
+                            <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path class="volume-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            <path class="volume-wave" d="M18.36 5.64a9 9 0 0 1 0 12.72" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        `;
+                    }
+                }
             });
         }
         

@@ -98,7 +98,12 @@
                     <input type="file" id="video-file-input" class="hidden" accept="video/*">
                     <div class="drop-zone-content">
                         <div class="drop-zone-icon">
-                            <i class="fas fa-cloud-upload-alt"></i>
+                            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                                <rect x="12" y="20" width="40" height="32" rx="4" stroke="currentColor" stroke-width="2.5" fill="none"/>
+                                <path d="M32 12V40M24 20L32 12L40 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <circle cx="32" cy="48" r="2" fill="currentColor"/>
+                                <path d="M28 52L32 48L36 52" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            </svg>
                         </div>
                         <h3 class="drop-zone-title">영상을 드래그하거나 클릭하여 업로드</h3>
                         <p class="drop-zone-subtitle">MP4, MOV, AVI, WEBM (최대 2GB)</p>
@@ -135,7 +140,13 @@
                     </div>
                     <div class="control-icons">
                         <button class="control-icon" id="caption-btn" title="자막">CC</button>
-                        <button class="control-icon" id="volume-btn" title="볼륨">🔊</button>
+                        <button class="control-icon" id="volume-btn" title="볼륨">
+                            <svg class="volume-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 9v6h4l5 5V4L7 9H3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <path class="volume-wave" d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                                <path class="volume-wave" d="M18.36 5.64a9 9 0 0 1 0 12.72" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+                            </svg>
+                        </button>
                         <button class="control-icon" id="speed-btn" title="재생 속도">1x</button>
                         <button class="control-icon" id="fullscreen-btn" title="전체화면">⛶</button>
                     </div>
