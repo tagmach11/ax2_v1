@@ -3,405 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <title>나의 작업 - AX2</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>AX2 마이페이지</title>
     <link rel="stylesheet" href="../css/mypage.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .storage-container {
-            max-width: 1200px;
-            margin: 100px auto 40px;
-            padding: 0 20px;
-        }
-
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 30px;
-        }
-
-        /* 상단 통계 카드 */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-icon-box {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .stat-icon-box.purple { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-        .stat-icon-box.blue { background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white; }
-        .stat-icon-box.green { background: linear-gradient(135deg, #14B8A6, #34D399); color: white; }
-        .stat-icon-box.orange { background: linear-gradient(135deg, #F59E0B, #FBBF24); color: white; }
-
-        .stat-info {
-            flex: 1;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #666;
-            margin-top: 4px;
-        }
-
-        /* 저장공간 바 */
-        .storage-bar-section {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .storage-bar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .storage-bar-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .storage-bar-info {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .storage-bar-info span {
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        .storage-progress {
-            height: 12px;
-            background: #E5E7EB;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .storage-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 6px;
-            transition: width 0.5s ease;
-        }
-
-        /* 작업 목록 섹션 */
-        .works-section {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .works-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .works-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-        }
-
-        .filter-tab {
-            padding: 8px 16px;
-            border: 1px solid #E5E7EB;
-            background: white;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .filter-tab:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
-
-        .filter-tab.active {
-            background: #667eea;
-            border-color: #667eea;
-            color: white;
-        }
-
-        /* 작업 테이블 */
-        .works-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .works-table th {
-            padding: 14px 12px;
-            text-align: left;
-            font-size: 13px;
-            font-weight: 500;
-            color: #666;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .works-table td {
-            padding: 16px 12px;
-            font-size: 14px;
-            color: #1a1a2e;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .works-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .work-title-cell {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .work-thumbnail {
-            width: 60px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
-
-        .work-name {
-            font-weight: 500;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .status-badge.completed {
-            background: #D1FAE5;
-            color: #059669;
-        }
-
-        .status-badge.processing {
-            background: #FEF3C7;
-            color: #D97706;
-        }
-
-        .status-badge.pending {
-            background: #E5E7EB;
-            color: #666;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: transparent;
-            color: #666;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .action-btn:hover {
-            background: #f0f0f0;
-            color: #1a1a2e;
-        }
-
-        /* 빈 상태 */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .empty-icon {
-            width: 80px;
-            height: 80px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
-            color: #999;
-        }
-
-        .empty-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .empty-desc {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .empty-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .empty-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .works-header {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            
-            .filter-tabs {
-                width: 100%;
-                overflow-x: auto;
-            }
-        }
-    </style>
 </head>
 <body>
+    <!-- 모바일 메뉴 버튼 -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 사이드바 오버레이 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
     <!-- 배경 효과 -->
     <div class="background-effects">
         <div class="gradient-cloud cloud-1"></div>
         <div class="gradient-cloud cloud-2"></div>
         <div class="gradient-cloud cloud-3"></div>
         <canvas id="particles-canvas"></canvas>
+        <canvas id="confetti-canvas"></canvas>
         <div class="reflection-light"></div>
     </div>
 
-    <!-- 네비게이션 바 플레이스홀더 -->
-    <div id="nav-placeholder"></div>
+    <!-- 상단 네비게이션 -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <div class="logo" onclick="location.href='../index.html'">
+                    <img src="../assets/image/AX2_logo.png" alt="AX2" class="logo-img">
+                </div>
+                <div class="service-tabs">
+                    <a href="../index.html" class="service-tab">
+                        <span data-i18n="nav-auto-translate">자막생성</span>
+                    </a>
+                    <a href="used.html" class="service-tab">
+                        <span data-i18n="nav-usage">사용방법</span>
+                    </a>
+                    <a href="pricing.html" class="service-tab">
+                        <span data-i18n="nav-pricing">요금제/결제</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="login.html" class="login-btn" data-i18n="nav-login">로그인</a>
+                <a href="signup.html" class="signup-btn" data-i18n="nav-signup">가입하기</a>
+                <div class="more-menu-btn" id="moreMenuBtn">
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+                <div class="more-menu-dropdown" id="moreMenuDropdown">
+                    <div class="more-menu-dropdown-content">
+                        <ul class="menu-comp">
+                            <!-- 도움 서브메뉴 패널 -->
+                            <div class="submenu-panel submenu-panel--help" id="helpSubmenuPanel">
+                                    <ul class="help-menu-list">
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="used.html" data-i18n-title="help-usage">
+                                                <div class="navbar__item__icon"><i class="fas fa-book"></i></div>
+                                                <div class="navbar__item__title" data-i18n="help-usage">사용방법</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="help-faq">
+                                                <div class="navbar__item__icon"><i class="fas fa-question-circle"></i></div>
+                                                <div class="navbar__item__title" data-i18n="help-faq">자주 묻는 질문</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="help-tools">
+                                                <div class="navbar__item__icon"><i class="fas fa-tools"></i></div>
+                                                <div class="navbar__item__title" data-i18n="help-tools">도구</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="help-legal">
+                                                <div class="navbar__item__icon"><i class="fas fa-gavel"></i></div>
+                                                <div class="navbar__item__title" data-i18n="help-legal">법률 & 개인 정보 보호</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="help-contact">
+                                                <div class="navbar__item__icon"><i class="fas fa-envelope"></i></div>
+                                                <div class="navbar__item__title" data-i18n="help-contact">문의</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- 언어 서브메뉴 패널 - 솔루션 부분에 표시 -->
+                                <div class="submenu-panel submenu-panel--language" id="languageSubmenuPanel">
+                                    <ul class="language-menu-list">
+                                        <li class="navbar__item navbar__item--xs">
+                                            <div class="language-item" data-lang="ko">
+                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
+                                                <div class="navbar__item__title">한국어</div>
+                                                <i class="fas fa-check language-check"></i>
+                                            </div>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <div class="language-item" data-lang="ja">
+                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
+                                                <div class="navbar__item__title">日本語</div>
+                                                <i class="fas fa-check language-check" style="display: none;"></i>
+                                            </div>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <div class="language-item" data-lang="zh">
+                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
+                                                <div class="navbar__item__title">中文 (简体)</div>
+                                                <i class="fas fa-check language-check" style="display: none;"></i>
+                                            </div>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <div class="language-item" data-lang="fr">
+                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
+                                                <div class="navbar__item__title">Français</div>
+                                                <i class="fas fa-check language-check" style="display: none;"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menu-comp__general">
+                                    <ul>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="pricing.html" data-i18n-title="menu-pricing">
+                                                <div class="navbar__item__icon"><i class="fas fa-tag"></i></div>
+                                                <div class="navbar__item__title" data-i18n="menu-pricing">가격</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="menu-security">
+                                                <div class="navbar__item__icon"><i class="fas fa-shield-alt"></i></div>
+                                                <div class="navbar__item__title" data-i18n="menu-security">보안</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="menu-features">
+                                                <div class="navbar__item__icon"><i class="fas fa-star"></i></div>
+                                                <div class="navbar__item__title" data-i18n="menu-features">기능</div>
+                                            </a>
+                                        </li>
+                                        <li class="navbar__item navbar__item--xs">
+                                            <a href="#" data-i18n-title="menu-about">
+                                                <div class="navbar__item__icon"><i class="fas fa-heart"></i></div>
+                                                <div class="navbar__item__title" data-i18n="menu-about">회사 소개</div>
+                                            </a>
+                                        </li>
+                                        <li class="divider divider--break"></li>
+                                        <li class="nav-has-dropdown">
+                                            <div class="navbar__item navbar__item--xs help-setting-item" id="helpSettingBtn">
+                                                <div>
+                                                    <div class="navbar__item__icon"><i class="fas fa-chevron-left"></i></div>
+                                                    <div class="navbar__item__title" data-i18n="menu-help">도움</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="nav-has-dropdown">
+                                            <div class="navbar__item navbar__item--xs language-setting-item" id="languageSettingBtn">
+                                                <div>
+                                                    <div class="navbar__item__icon"><i class="fas fa-chevron-left"></i></div>
+                                                    <div class="navbar__item__title" data-i18n="menu-language">언어</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <!-- 메인 컨텐츠 -->
-    <div class="storage-container">
-        <h1 class="page-title">나의 작업</h1>
-
-        <!-- 통계 카드 -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon-box purple">
-                    <i class="fas fa-folder"></i>
-                </div>
-                <div class="stat-info">
-                    <div class="stat-value" id="total-works">0</div>
-                    <div class="stat-label">전체 작업</div>
+    <div class="container">
+        <!-- 저장공간 대시보드 -->
+        <div class="storage-dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">
+                    <i class="fas fa-database"></i>
+                    저장공간 관리
+                </h2>
+                <div class="free-plan-badge">
+                    <i class="fas fa-gift"></i>
+                    <span>1시간 무료 영상 제공</span>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon-box blue">
-                    <i class="fas fa-check-circle"></i>
+            <div class="storage-content">
+                <div class="storage-info">
+                    <div class="storage-usage">
+                        <div class="storage-label">
+                            <span>사용 중</span>
+                            <span class="storage-value" id="storage-used">0 GB</span>
+                        </div>
+                        <div class="storage-label">
+                            <span>전체</span>
+                            <span class="storage-value" id="storage-total">1 GB</span>
+                        </div>
+                    </div>
+                    <div class="storage-progress-bar">
+                        <div class="storage-progress-fill" id="storage-progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="storage-percentage" id="storage-percentage">0% 사용</div>
                 </div>
-                <div class="stat-info">
-                    <div class="stat-value" id="completed-works">0</div>
-                    <div class="stat-label">완료된 작업</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon-box green">
-                    <i class="fas fa-clock"></i>
-                </div>
-                <div class="stat-info">
-                    <div class="stat-value" id="total-duration">0분</div>
-                    <div class="stat-label">총 영상 시간</div>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon-box orange">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <div class="stat-info">
-                    <div class="stat-value" id="this-month">0</div>
-                    <div class="stat-label">이번 달 작업</div>
+                <div class="storage-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-videos">0</div>
+                            <div class="stat-label">저장된 영상</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="total-duration">0분</div>
+                            <div class="stat-label">총 영상 시간</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 저장공간 바 (기존) -->
-        <div class="storage-bar-section">
-            <div class="storage-bar-header">
-                <div class="storage-bar-title">저장공간</div>
-                <div class="storage-bar-info"><span id="storage-used">0 GB</span> / <span id="storage-total">1 GB</span> 사용 중</div>
-            </div>
-            <div class="storage-progress">
-                <div class="storage-progress-fill" id="storage-progress-fill" style="width: 0%"></div>
-            </div>
-        </div>
-
-        <!-- 작업 목록 (mypage.html에서 추가) -->
+        <!-- 영상 목록 -->
         <div class="videos-section">
             <div class="section-header">
-                <div class="section-title">작업 목록</div>
+                <div class="section-title">최근 영상</div>
                 <div class="filter-controls">
                     <button class="filter-btn active" data-filter="all">전체</button>
                     <button class="filter-btn" data-filter="recent">최근</button>
@@ -414,7 +259,7 @@
         </div>
     </div>
 
-    <!-- 편집 모달 (mypage.html에서 추가) -->
+    <!-- 편집 모달 -->
     <div class="modal" id="edit-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -451,153 +296,14 @@
         </div>
     </div>
 
-    <script src="../js/i18n.js" defer></script>
-    <script src="../js/nav-bar.js" defer></script>
+
+    <script src="../js/navbar.js" defer></script>
     <script src="../js/auth-state.js" defer></script>
-    <script src="../script.js" defer></script>
+    <script src="../js/glass-nav.js" defer></script>
     <script src="../js/mypage.js" defer></script>
-    <script>
-        // 저장된 영상 로드
-        function loadSavedVideos() {
-            const savedVideos = JSON.parse(localStorage.getItem('savedVideos') || '[]');
-            const videoGrid = document.getElementById('video-grid');
-            
-            if (!videoGrid) {
-                console.error('video-grid 요소를 찾을 수 없습니다.');
-                return;
-            }
-            
-            console.log('저장된 영상 개수:', savedVideos.length);
-            
-            if (savedVideos.length === 0) {
-                videoGrid.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
-                        <div class="empty-state-icon" style="font-size: 48px; margin-bottom: 16px;">📹</div>
-                        <div class="empty-state-text" style="font-size: 16px; color: #999999;">저장된 영상이 없습니다</div>
-                        <div style="margin-top: 10px; font-size: 0.85rem; color: #999;">
-                            홈페이지에서 영상을 업로드하고 번역하면 여기에 표시됩니다.
-                        </div>
-                    </div>
-                `;
-                return;
-            }
-            
-            // 최근 순으로 정렬
-            const sortedVideos = savedVideos.slice().sort((a, b) => {
-                const dateA = a.savedAt ? new Date(a.savedAt) : (a.createdAt ? new Date(a.createdAt) : new Date(0));
-                const dateB = b.savedAt ? new Date(b.savedAt) : (b.createdAt ? new Date(b.createdAt) : new Date(0));
-                return dateB - dateA;
-            });
-            
-            videoGrid.innerHTML = sortedVideos.map(video => {
-                const date = new Date(video.createdAt || video.savedAt);
-                const dateStr = date.getFullYear() + '.' + 
-                    String(date.getMonth() + 1).padStart(2, '0') + '.' + 
-                    String(date.getDate()).padStart(2, '0');
-                
-                let duration = '0:00';
-                if (video.duration) {
-                    const minutes = Math.floor(video.duration / 60);
-                    const seconds = Math.floor(video.duration % 60);
-                    duration = minutes + ':' + String(seconds).padStart(2, '0');
-                }
-                
-                return `
-                    <div class="video-card" data-video-id="${video.id}">
-                        <div class="video-thumbnail">
-                            <div class="thumbnail-placeholder">
-                                <i class="fas fa-play-circle" style="font-size: 48px; color: #999;"></i>
-                            </div>
-                        </div>
-                        <div class="video-info">
-                            <div class="video-title">${video.title || '제목 없음'}</div>
-                            <div class="video-meta">${dateStr} • ${duration}</div>
-                            <div class="video-actions">
-                                <button class="action-btn primary" onclick="window.location.href='edit.html?id=${video.id}'">편집</button>
-                                <button class="action-btn" onclick="if(typeof downloadVideo === 'function') downloadVideo('${video.id}'); else alert('다운로드 기능을 사용할 수 없습니다.');">다운로드</button>
-                                <button class="action-btn danger" onclick="if(typeof deleteVideo === 'function') deleteVideo('${video.id}'); else if(confirm('이 영상을 삭제하시겠습니까?')) { const videos = JSON.parse(localStorage.getItem('savedVideos') || '[]'); const filtered = videos.filter(v => v.id !== '${video.id}'); localStorage.setItem('savedVideos', JSON.stringify(filtered)); loadSavedVideos(); updateStats(); }">삭제</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 통계 업데이트
-        function updateStats() {
-            const savedVideos = JSON.parse(localStorage.getItem('savedVideos') || '[]');
-            
-            // 통계 카드 업데이트
-            const totalWorksEl = document.getElementById('total-works');
-            const completedWorksEl = document.getElementById('completed-works');
-            const totalDurationEl = document.getElementById('total-duration');
-            const thisMonthEl = document.getElementById('this-month');
-            
-            if (totalWorksEl) totalWorksEl.textContent = savedVideos.length;
-            if (completedWorksEl) completedWorksEl.textContent = savedVideos.filter(v => v.translated).length;
-            
-            // 총 영상 시간 계산
-            const totalMinutes = savedVideos.reduce((sum, v) => {
-                if (v.duration) {
-                    return sum + Math.floor(v.duration / 60);
-                }
-                return sum;
-            }, 0);
-            if (totalDurationEl) totalDurationEl.textContent = totalMinutes + '분';
-            
-            // 이번 달 작업
-            const thisMonth = new Date().getMonth();
-            const thisMonthWorks = savedVideos.filter(v => {
-                const date = new Date(v.createdAt || v.savedAt);
-                return date.getMonth() === thisMonth;
-            });
-            if (thisMonthEl) thisMonthEl.textContent = thisMonthWorks.length;
-        }
-        
-        // 페이지 로드 시
-        document.addEventListener('DOMContentLoaded', function() {
-            // 저장 완료 플래그 확인
-            const videoSaved = localStorage.getItem('videoSaved');
-            if (videoSaved === 'true') {
-                const lastSavedVideoId = localStorage.getItem('lastSavedVideoId');
-                console.log('저장 완료 플래그 확인, 영상 ID:', lastSavedVideoId);
-                localStorage.removeItem('videoSaved');
-                localStorage.removeItem('lastSavedVideoId');
-            }
-            
-            // 영상 목록과 통계 로드
-            loadSavedVideos();
-            updateStats();
-            
-            // 저장 완료 후 새로고침
-            if (videoSaved === 'true') {
-                setTimeout(() => {
-                    loadSavedVideos();
-                    updateStats();
-                }, 500);
-            }
-        });
-
-        // 편집 모달 함수 (mypage.html에서 추가)
-        function closeEditModal() {
-            const modal = document.getElementById('edit-modal');
-            if (modal) {
-                modal.classList.remove('show');
-            }
-        }
-
-        function saveEdit() {
-            // 편집 저장 로직은 mypage.js에서 처리
-            closeEditModal();
-        }
-
-        // 모달 외부 클릭 시 닫기
-        document.addEventListener('click', function(e) {
-            const modal = document.getElementById('edit-modal');
-            if (modal && e.target === modal) {
-                closeEditModal();
-            }
-        });
-    </script>
+    <script src="../js/script.js" defer></script>
+    <script src="../js/more-menu.js" defer></script>
+    <script src="../js/language-selector.js" defer></script>
 </body>
 </html>
+
