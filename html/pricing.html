@@ -547,6 +547,150 @@
                 min-width: calc(50% - 5px);
             }
         }
+
+        /* 요금제 비교표 스타일 */
+        .pricing-comparison {
+            margin-top: 80px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .comparison-header {
+            background: #F9FAFB;
+            padding: 20px 24px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .comparison-notice {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .comparison-notice strong {
+            color: #1a1a2e;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 14px;
+        }
+
+        .comparison-table thead th {
+            background: #F9FAFB;
+            font-weight: 600;
+            color: #1a1a2e;
+            position: sticky;
+            top: 0;
+        }
+
+        .comparison-table thead th:first-child {
+            text-align: left;
+            width: 200px;
+        }
+
+        .comparison-table thead th.plan-free { color: #374151; }
+        .comparison-table thead th.plan-student { color: #14B8A6; }
+        .comparison-table thead th.plan-general { color: #3B82F6; }
+        .comparison-table thead th.plan-pro { color: #8B5CF6; }
+
+        .comparison-table tbody td:first-child {
+            text-align: left;
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        .comparison-table tbody td {
+            color: #666;
+        }
+
+        .comparison-table .section-row td {
+            background: #F3F4F6;
+            font-weight: 600;
+            color: #1a1a2e;
+            text-align: left;
+            padding: 12px 16px;
+        }
+
+        .comparison-table .check-icon {
+            color: #14B8A6;
+            font-size: 18px;
+        }
+
+        .comparison-table .dash {
+            color: #D1D5DB;
+        }
+
+        .comparison-table .highlight {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .comparison-table .unlimited {
+            color: #14B8A6;
+            font-weight: 600;
+        }
+
+        .comparison-footer {
+            background: #fff;
+            padding: 20px 24px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .comparison-footer-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #EF4444;
+            margin-bottom: 12px;
+        }
+
+        .comparison-footer-list {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-footer-list li {
+            margin-bottom: 4px;
+        }
+
+        .comparison-insurance {
+            font-size: 13px;
+            color: #666;
+            padding: 16px 0;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 12px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            .comparison-table thead th:first-child {
+                width: 150px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -569,238 +713,7 @@
     </div>
 
     <!-- 상단 네비게이션 -->
-    <nav class="glass-nav">
-        <div class="nav-content">
-            <div class="nav-left">
-                <div class="logo" onclick="location.href='../index.html'">
-                    <img src="../assets/image/AX2_logo.png" alt="AX2" class="logo-img">
-                </div>
-                <div class="service-tabs">
-                    <a href="../index.html" class="service-tab">
-                        <span data-i18n="nav-auto-translate">자막생성</span>
-                    </a>
-                    <a href="used.html" class="service-tab">
-                        <span data-i18n="nav-usage">사용방법</span>
-                    </a>
-                    <a href="pricing.html" class="service-tab active">
-                        <span data-i18n="nav-pricing">요금제/결제</span>
-                    </a>
-                </div>
-            </div>
-            <div class="nav-right">
-                <a href="login.html" class="login-btn" data-i18n="nav-login">로그인</a>
-                <a href="signup.html" class="signup-btn" data-i18n="nav-signup">가입하기</a>
-                <div class="more-menu-btn" id="moreMenuBtn">
-                    <div class="dots">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-                <div class="more-menu-dropdown" id="moreMenuDropdown">
-                    <div class="more-menu-dropdown-content">
-                        <ul class="menu-comp">
-                            <li>
-                                <div class="menu-comp__products">
-                                    <ul class="nav__group">
-                                        <li class="nav__title" data-i18n="menu-other-products">기타 제품</li>
-                                        <li class="navbar__item navbar__item--md">
-                                            <a href="../index.html" data-i18n-title="nav-auto-translate">
-                                                <div class="navbar__item__icon"><i class="fas fa-language"></i></div>
-                                                <div class="navbar__item__content">
-                                                    <div class="navbar__item__title" data-i18n="menu-subtitle-gen">자막생성</div>
-                                                    <div class="navbar__item__description" data-i18n="menu-subtitle-desc">AI 기반 실시간 번역</div>
-                                                </div>
-                                                <div class="navbar__item__go"><i class="fas fa-arrow-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--md">
-                                            <a href="live_lecture.html" data-i18n-title="menu-lecture-trans">
-                                                <div class="navbar__item__icon"><i class="fas fa-video"></i></div>
-                                                <div class="navbar__item__content">
-                                                    <div class="navbar__item__title" data-i18n="menu-lecture-trans">강의 번역</div>
-                                                    <div class="navbar__item__description" data-i18n="menu-lecture-desc">라이브 번역 및 자막</div>
-                                                </div>
-                                                <div class="navbar__item__go"><i class="fas fa-arrow-right"></i></div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="menu-comp__business">
-                                    <ul class="nav__group">
-                                        <li class="nav__title" data-i18n="menu-solutions">솔루션</li>
-                                        <li class="navbar__item navbar__item--lg">
-                                            <a href="#" data-i18n-title="menu-business">
-                                                <div class="navbar__item__icon"><i class="fas fa-briefcase"></i></div>
-                                                <div class="navbar__item__content">
-                                                    <div class="navbar__item__title" data-i18n="menu-business">비즈니스</div>
-                                                    <div class="navbar__item__description" data-i18n="menu-business-desc">비즈니스 팀을 위한 PDF 편집 및 워크플로 간소화</div>
-                                                </div>
-                                                <div class="navbar__item__go"><i class="fas fa-arrow-right"></i></div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <ul class="nav__group">
-                                        <li class="nav__title" data-i18n="menu-applications">응용 프로그램</li>
-                                        <li class="navbar__item navbar__item--md">
-                                            <a href="#" data-i18n-title="menu-desktop">
-                                                <div class="navbar__item__icon"><i class="fas fa-desktop"></i></div>
-                                                <div class="navbar__item__content">
-                                                    <div class="navbar__item__title" data-i18n="menu-desktop">데스크톱 앱</div>
-                                                    <div class="navbar__item__description" data-i18n="menu-desktop-desc">Mac 및 Windows에서 사용 가능</div>
-                                                </div>
-                                                <div class="navbar__item__go"><i class="fas fa-arrow-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--md">
-                                            <a href="#" data-i18n-title="menu-mobile">
-                                                <div class="navbar__item__icon"><i class="fas fa-mobile-alt"></i></div>
-                                                <div class="navbar__item__content">
-                                                    <div class="navbar__item__title" data-i18n="menu-mobile">모바일 앱</div>
-                                                    <div class="navbar__item__description" data-i18n="menu-mobile-desc">iOS 및 안드로이드에서 사용 가능</div>
-                                                </div>
-                                                <div class="navbar__item__go"><i class="fas fa-arrow-right"></i></div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- 도움 서브메뉴 패널 - 솔루션 부분에 표시 -->
-                                <div class="submenu-panel submenu-panel--help" id="helpSubmenuPanel">
-                                    <ul class="help-menu-list">
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="used.html" data-i18n-title="help-usage">
-                                                <div class="navbar__item__icon"><i class="fas fa-book"></i></div>
-                                                <div class="navbar__item__title" data-i18n="help-usage">사용방법</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="faq.html" data-i18n-title="help-faq">
-                                                <div class="navbar__item__icon"><i class="fas fa-question-circle"></i></div>
-                                                <div class="navbar__item__title" data-i18n="help-faq">자주 묻는 질문</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="#" data-i18n-title="help-tools">
-                                                <div class="navbar__item__icon"><i class="fas fa-tools"></i></div>
-                                                <div class="navbar__item__title" data-i18n="help-tools">도구</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="#" data-i18n-title="help-legal">
-                                                <div class="navbar__item__icon"><i class="fas fa-gavel"></i></div>
-                                                <div class="navbar__item__title" data-i18n="help-legal">법률 & 개인 정보 보호</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="#" data-i18n-title="help-contact">
-                                                <div class="navbar__item__icon"><i class="fas fa-envelope"></i></div>
-                                                <div class="navbar__item__title" data-i18n="help-contact">문의</div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- 언어 서브메뉴 패널 - 솔루션 부분에 표시 -->
-                                <div class="submenu-panel submenu-panel--language" id="languageSubmenuPanel">
-                                    <ul class="language-menu-list">
-                                        <li class="navbar__item navbar__item--xs">
-                                            <div class="language-item" data-lang="ko">
-                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
-                                                <div class="navbar__item__title">한국어</div>
-                                                <i class="fas fa-check language-check"></i>
-                                            </div>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <div class="language-item" data-lang="ja">
-                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
-                                                <div class="navbar__item__title">日本語</div>
-                                                <i class="fas fa-check language-check" style="display: none;"></i>
-                                            </div>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <div class="language-item" data-lang="zh">
-                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
-                                                <div class="navbar__item__title">中文 (简体)</div>
-                                                <i class="fas fa-check language-check" style="display: none;"></i>
-                                            </div>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <div class="language-item" data-lang="de">
-                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
-                                                <div class="navbar__item__title">Deutsch</div>
-                                                <i class="fas fa-check language-check" style="display: none;"></i>
-                                            </div>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <div class="language-item" data-lang="fr">
-                                                <div class="navbar__item__icon"><i class="fas fa-globe"></i></div>
-                                                <div class="navbar__item__title">Français</div>
-                                                <i class="fas fa-check language-check" style="display: none;"></i>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="menu-comp__general">
-                                    <ul>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="pricing.html" data-i18n-title="menu-pricing">
-                                                <div class="navbar__item__icon"><i class="fas fa-tag"></i></div>
-                                                <div class="navbar__item__title" data-i18n="menu-pricing">가격</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="security.html" data-i18n-title="menu-security">
-                                                <div class="navbar__item__icon"><i class="fas fa-shield-alt"></i></div>
-                                                <div class="navbar__item__title" data-i18n="menu-security">보안</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="features.html" data-i18n-title="menu-features">
-                                                <div class="navbar__item__icon"><i class="fas fa-star"></i></div>
-                                                <div class="navbar__item__title" data-i18n="menu-features">기능</div>
-                                            </a>
-                                        </li>
-                                        <li class="navbar__item navbar__item--xs">
-                                            <a href="#" data-i18n-title="menu-about">
-                                                <div class="navbar__item__icon"><i class="fas fa-heart"></i></div>
-                                                <div class="navbar__item__title" data-i18n="menu-about">회사 소개</div>
-                                            </a>
-                                        </li>
-                                        <li class="divider divider--break"></li>
-                                        <li class="nav-has-dropdown">
-                                            <div class="navbar__item navbar__item--xs help-setting-item" id="helpSettingBtn">
-                                                <div>
-                                                    <div class="navbar__item__icon"><i class="fas fa-chevron-left"></i></div>
-                                                    <div class="navbar__item__title" data-i18n="menu-help">도움</div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-has-dropdown">
-                                            <div class="navbar__item navbar__item--xs language-setting-item" id="languageSettingBtn">
-                                                <div>
-                                                    <div class="navbar__item__icon"><i class="fas fa-chevron-left"></i></div>
-                                                    <div class="navbar__item__title" data-i18n="menu-language">언어</div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div id="nav-placeholder"></div>
 
     <!-- 메인 컨텐츠 -->
     <main class="main-container">
@@ -848,6 +761,333 @@
                     <div class="pricing-card-description">고급 개인 사용자<br>기업·공공기관·대학교·에이전시</div>
                     <div class="pricing-card-price" id="pro-price">49,000<span class="price-unit">원</span></div>
                     <button class="pricing-card-button">결제하기</button>
+                </div>
+            </div>
+
+            <!-- 요금제 비교표 -->
+            <div class="pricing-comparison">
+                <div class="comparison-header">
+                    <p class="comparison-notice">
+                        ✓ 요금제 선택 시 <strong>영상 시간/자막 생성/번역 횟수</strong>는 <strong>해당 요금제 기준으로</strong> 적용되며, 이용약관에 따라 <strong>해당 규격이 적용됩니다.</strong><br>
+                        ✓ 요금제 기간이 만료된 경우 <strong>무료 요금제</strong>로 자동 전환되며, <strong>재결제 시</strong> 해당 요금제 기능이 다시 적용됩니다.
+                    </p>
+                </div>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>요금제별 제공 기능</th>
+                            <th class="plan-free">무료</th>
+                            <th class="plan-student">학생</th>
+                            <th class="plan-general">일반</th>
+                            <th class="plan-pro">프로</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 자막 생성 기본 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">자막 생성 기본</td>
+                        </tr>
+                        <tr>
+                            <td>월간 영상 처리 시간</td>
+                            <td>5분</td>
+                            <td>60분</td>
+                            <td>300분</td>
+                            <td class="unlimited">무제한</td>
+                        </tr>
+                        <tr>
+                            <td>1회 최대 영상 길이</td>
+                            <td>5분</td>
+                            <td>30분</td>
+                            <td>60분</td>
+                            <td>120분</td>
+                        </tr>
+                        <tr>
+                            <td>영상 업로드 용량</td>
+                            <td>100MB</td>
+                            <td>500MB</td>
+                            <td>2GB</td>
+                            <td>5GB</td>
+                        </tr>
+                        <tr>
+                            <td>저장 공간</td>
+                            <td>500MB</td>
+                            <td>5GB</td>
+                            <td>20GB</td>
+                            <td>100GB</td>
+                        </tr>
+                        <tr>
+                            <td>동시 작업 수</td>
+                            <td>1개</td>
+                            <td>3개</td>
+                            <td>5개</td>
+                            <td>10개</td>
+                        </tr>
+                        <tr>
+                            <td>작업 보관 기간</td>
+                            <td>7일</td>
+                            <td>30일</td>
+                            <td>90일</td>
+                            <td class="unlimited">무제한</td>
+                        </tr>
+
+                        <!-- 음성 인식 (STT) 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">음성 인식 (STT)</td>
+                        </tr>
+                        <tr>
+                            <td>AI 음성 인식</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>음성 인식 정확도</td>
+                            <td>일반</td>
+                            <td>높음</td>
+                            <td>높음</td>
+                            <td class="highlight">최고</td>
+                        </tr>
+                        <tr>
+                            <td>지원 원본 언어</td>
+                            <td>5개</td>
+                            <td>20개</td>
+                            <td>50개</td>
+                            <td>100개+</td>
+                        </tr>
+                        <tr>
+                            <td>자동 언어 감지</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>화자 분리 (다중 화자)</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>배경 소음 제거</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+
+                        <!-- AI 번역 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">AI 번역</td>
+                        </tr>
+                        <tr>
+                            <td>자막 번역 기능</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>동시 번역 언어 수</td>
+                            <td class="dash">-</td>
+                            <td>3개</td>
+                            <td>10개</td>
+                            <td class="unlimited">무제한</td>
+                        </tr>
+                        <tr>
+                            <td>지원 번역 언어</td>
+                            <td class="dash">-</td>
+                            <td>30개</td>
+                            <td>80개</td>
+                            <td>130개+</td>
+                        </tr>
+                        <tr>
+                            <td>번역 품질</td>
+                            <td class="dash">-</td>
+                            <td>일반</td>
+                            <td>고품질</td>
+                            <td class="highlight">최고 품질</td>
+                        </tr>
+                        <tr>
+                            <td>전문 용어 사전</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>사용자 정의 용어집</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+
+                        <!-- 자막 편집 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">자막 편집</td>
+                        </tr>
+                        <tr>
+                            <td>자막 텍스트 편집</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>타임라인 편집</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>자막 스타일 커스텀</td>
+                            <td class="dash">-</td>
+                            <td>기본</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>자막 위치/크기 조절</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>자막 폰트 업로드</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>AI 자막 교정</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+
+                        <!-- 다운로드/내보내기 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">다운로드 / 내보내기</td>
+                        </tr>
+                        <tr>
+                            <td>SRT 파일</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>VTT 파일</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>TXT 파일 (텍스트 전체)</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>ASS/SSA 파일</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>자막 내장 영상 (MP4)</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>고화질 영상 내보내기 (4K)</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>워터마크 없는 다운로드</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+
+                        <!-- 부가 기능 섹션 -->
+                        <tr class="section-row">
+                            <td colspan="5">부가 기능</td>
+                        </tr>
+                        <tr>
+                            <td>실시간 미리보기</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>작업 히스토리</td>
+                            <td>최근 5개</td>
+                            <td>최근 30개</td>
+                            <td>최근 100개</td>
+                            <td class="unlimited">무제한</td>
+                        </tr>
+                        <tr>
+                            <td>팀 협업 기능</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>API 액세스</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>우선 처리</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>전담 고객 지원</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td class="dash">-</td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-footer">
+                    <div class="comparison-footer-title">✓ 결제 시 확인 사항</div>
+                    <ul class="comparison-footer-list">
+                        <li>• 각 요금제에서 1일은 24시간, 1주일은 7일, 1개월은 30일, 3개월은 90일, 1년은 365일 기준입니다.</li>
+                        <li>• 상기 요금제는 1인 1계정 기준이며, 복수 계정 가입 시 현재 요금제에서 배액을 적용합니다.</li>
+                        <li>• 사용자는 ID와 비밀번호를 타인과 공유하여 사용할 수 없으며, 동일 아이디의 중복 로그인은 지원하지 않습니다.</li>
+                        <li>• 매월 신용카드 자동결제는 프로 1개월만 가능하며 결제액은 1,000원 할인하여 월 48,000원 입니다.</li>
+                        <li>• 견적서 및 사업자등록증 사본은 '결제하기' 버튼을 누른 뒤 '결제정보' 화면에서 직접 다운로드 가능합니다.</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-insurance">
+                    서울보증보험을 통한 이행(지급)보증보험가입됨. 증권번호:100-000-202503640815
                 </div>
             </div>
         </div>
@@ -941,6 +1181,8 @@
         </div>
     </div>
 
+    <script src="../js/nav-bar.js"></script>
+    <script src="../js/i18n.js" defer></script>
     <script src="../js/auth-state.js" defer></script>
     <script src="../script.js" defer></script>
     <script src="../js/more-menu.js" defer></script>
@@ -1046,6 +1288,34 @@
                 });
             }
             
+            // 언어 설정 기능
+            const languageOptions = document.querySelectorAll('.language-dropdown-menu .language-option');
+            const currentLang = localStorage.getItem('siteLanguage') || 'ko';
+            
+            languageOptions.forEach(option => {
+                const lang = option.getAttribute('data-lang');
+                if (lang === currentLang) {
+                    option.classList.add('active');
+                    option.querySelector('.fa-check').style.display = 'inline-block';
+                } else {
+                    option.classList.remove('active');
+                    option.querySelector('.fa-check').style.display = 'none';
+                }
+                
+                option.addEventListener('click', function() {
+                    const selectedLang = this.getAttribute('data-lang');
+                    localStorage.setItem('siteLanguage', selectedLang);
+                    
+                    languageOptions.forEach(opt => {
+                        opt.classList.remove('active');
+                        opt.querySelector('.fa-check').style.display = 'none';
+                    });
+                    
+                    this.classList.add('active');
+                    this.querySelector('.fa-check').style.display = 'inline-block';
+                });
+            });
+            
             const tabs = document.querySelectorAll('.service-tab');
             const currentPath = window.location.pathname;
             const currentPage = currentPath.split('/').pop() || 'index.html';
@@ -1055,11 +1325,7 @@
                 if (href) {
                     const tabPath = href.split('/').pop() || 'index.html';
                     
-                    if (tabPath === 'pricing.html' && currentPage === 'pricing.html') {
-                        tab.classList.add('active');
-                    } else if (tabPath === 'index.html' && currentPage === 'index.html') {
-                        tab.classList.add('active');
-                    } else if (tabPath === 'used.html' && currentPage === 'used.html') {
+                    if (tabPath === currentPage) {
                         tab.classList.add('active');
                     } else {
                         tab.classList.remove('active');
@@ -1240,6 +1506,7 @@
             // 페이지 새로고침하여 요금제 표시 업데이트
             location.reload();
         }
+        
     </script>
 </body>
 </html>

@@ -103,7 +103,7 @@
                                 <i class="fas fa-th-large"></i>
                                 <span>기능</span>
                             </a>
-                            <a href="#" class="mega-menu-link">
+                            <a href="${htmlPath}home.html" class="mega-menu-link">
                                 <i class="fas fa-tags"></i>
                                 <span>회사 소개</span>
                             </a>
