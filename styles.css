@@ -1271,7 +1271,7 @@ body {
 }
 
 .translate-btn:hover:not(:disabled) {
-    background: #757575;
+    background: #1a1a2e;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
 }
