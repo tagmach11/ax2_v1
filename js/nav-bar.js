@@ -11,9 +11,9 @@
     <nav class="glass-nav">
         <div class="nav-content">
             <div class="nav-left">
-                <div class="logo" onclick="location.href='${assetPath}index.html'">
+                <a href="${assetPath}index.html" class="logo">
                     <img src="${assetPath}assets/image/AX2_logo.png" alt="AX2" class="logo-img">
-                </div>
+                </a>
                 <div class="service-tabs">
                     <a href="${assetPath}index.html" class="service-tab" data-page="index.html">
                         <span>자막생성</span>
@@ -21,7 +21,7 @@
                     <a href="${htmlPath}pricing.html" class="service-tab" data-page="pricing.html">
                         <span>요금제/결제</span>
                     </a>
-                    <a href="${htmlPath}guide.html" class="service-tab" data-page="guide.html">
+                    <a href="${htmlPath}used.html" class="service-tab" data-page="used.html">
                         <span>사용가이드</span>
                     </a>
                 </div>
@@ -103,7 +103,7 @@
                                 <i class="fas fa-th-large"></i>
                                 <span>기능</span>
                             </a>
-                            <a href="${htmlPath}home.html" class="mega-menu-link">
+                            <a href="${isInHtmlFolder ? 'home.html' : 'html/home.html'}" class="mega-menu-link" target="_blank">
                                 <i class="fas fa-tags"></i>
                                 <span>회사 소개</span>
                             </a>
@@ -172,7 +172,9 @@
             if (tabPage === currentPage || 
                 (currentPage === 'index.html' && tabPage === 'index.html') ||
                 (currentPage === 'edit.html' && tabPage === 'index.html') ||
-                (currentPage === 'storage.html' && tabPage === 'index.html')) {
+                (currentPage === 'storage.html' && tabPage === 'index.html') ||
+                (currentPage === 'guide.html' && tabPage === 'used.html') ||
+                (currentPage === 'used.html' && tabPage === 'used.html')) {
                 tab.classList.add('active');
             } else {
                 tab.classList.remove('active');
