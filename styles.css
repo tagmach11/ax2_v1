@@ -68,7 +68,7 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(30px);
     border-bottom: 1px solid #E5E7EB;
-    padding: 15px 0;
+    padding: 12px 0;
 }
 
 .nav-content {
@@ -107,7 +107,7 @@ body {
 }
 
 .logo-img {
-    height: 32px;
+    height: 42px;
     width: auto;
     object-fit: contain;
 }
