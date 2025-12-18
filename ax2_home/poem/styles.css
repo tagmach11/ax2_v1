@@ -660,7 +660,7 @@ body::before {
 
 .select-option.selected {
     background-color: #F3F6FA;
-    color: #4F7BFF;
+    color: #9333EA;
     font-weight: 500;
 }
 
@@ -715,7 +715,7 @@ body::before {
     height: 18px;
     cursor: pointer;
     flex-shrink: 0;
-    accent-color: #2563EB;
+    accent-color: #9333EA;
 }
 
 .checkbox-text {
@@ -740,8 +740,8 @@ body::before {
 }
 
 .checkbox-text .link:hover {
-    color: #2563EB;
-    text-decoration-color: #2563EB;
+    color: #9333EA;
+    text-decoration-color: #9333EA;
 }
 
 .link {
@@ -755,14 +755,14 @@ body::before {
 }
 
 .link:hover {
-    color: #2563EB;
-    text-decoration-color: #2563EB;
+    color: #9333EA;
+    text-decoration-color: #9333EA;
 }
 
 .submit-btn {
     width: 100%;
     padding: 16px 24px;
-    background: #2563EB;
+    background: #9333EA;
     color: #FFFFFF;
     border: none;
     border-radius: 10px;
@@ -771,19 +771,19 @@ body::before {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     letter-spacing: -0.02em;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.25);
     font-family: 'Pretendard', 'Inter', sans-serif;
 }
 
 .submit-btn:hover {
-    background: #3B82F6;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4), 0 0 0 0 rgba(37, 99, 235, 0.1);
+    background: #A855F7;
+    box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4), 0 0 0 0 rgba(147, 51, 234, 0.1);
     transform: translateY(-1px);
 }
 
 .submit-btn:active {
-    background: #1D4ED8;
-    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.3);
+    background: #7C3AED;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
     transform: translateY(0);
 }
 
@@ -1217,7 +1217,7 @@ body::before {
 .modal-button {
     width: 100%;
     padding: 14px 24px;
-    background: #4F7BFF;
+    background: #9333EA;
     color: white;
     border: none;
     border-radius: 12px;
@@ -1226,18 +1226,18 @@ body::before {
     cursor: pointer;
     transition: all 0.2s;
     letter-spacing: -0.01em;
-    box-shadow: 0 4px 12px rgba(79, 123, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2);
 }
 
 .modal-button:hover {
-    background: #5A85FF;
-    box-shadow: 0 4px 16px rgba(79, 123, 255, 0.3);
+    background: #A855F7;
+    box-shadow: 0 4px 16px rgba(147, 51, 234, 0.3);
     transform: translateY(-1px);
 }
 
 .modal-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(79, 123, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(147, 51, 234, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -1318,21 +1318,21 @@ body::before {
 }
 
 .demo-btn {
-    background: #4F46E5;
+    background: #9333EA;
     backdrop-filter: none;
     color: #FFFFFF;
-    border: 1px solid #4F46E5;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+    border: 1px solid #9333EA;
+    box-shadow: 0 2px 8px rgba(147, 51, 234, 0.2);
     font-weight: 700;
     font-family: 'Pretendard', 'SUIT', 'Inter', sans-serif;
     transition: all 0.3s ease;
 }
 
 .demo-btn:hover {
-    background: #4338CA;
+    background: #A855F7;
     color: #FFFFFF;
-    border-color: #4338CA;
-    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.4);
+    border-color: #A855F7;
+    box-shadow: 0 4px 16px rgba(147, 51, 234, 0.4);
     transform: translateY(-2px);
 }
 
@@ -1380,7 +1380,7 @@ body::before {
 }
 
 .contact-item:hover {
-    color: #4F46E5;
+    color: #9333EA;
 }
 
 .contact-item svg {
@@ -1392,7 +1392,7 @@ body::before {
 }
 
 .contact-item:hover svg {
-    color: #4F46E5;
+    color: #9333EA;
 }
 
 @media (max-width: 768px) {
