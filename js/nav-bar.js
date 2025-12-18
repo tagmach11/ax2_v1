@@ -69,6 +69,10 @@
                             <span>스페인어</span>
                             <i class="fas fa-check" style="display: none;"></i>
                         </div>
+                        <div class="language-option" data-lang="fr">
+                            <span>프랑스어</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
                     </div>
                     <div class="mega-menu-content">
                         <!-- 1열: 기타 제품 -->
@@ -77,15 +81,15 @@
                             <a href="${assetPath}index.html" class="mega-menu-item">
                                 <div class="mega-menu-item-icon"><i class="fas fa-closed-captioning"></i></div>
                                 <div class="mega-menu-item-text">
-                                    <div class="mega-menu-item-title">자막생성</div>
-                                    <div class="mega-menu-item-desc">AI 기반 실시간 번역</div>
+                                    <div class="mega-menu-item-title">자막 생성</div>
+                                    <div class="mega-menu-item-desc">영상 자막 자동 생성</div>
                                 </div>
                                 <i class="fas fa-arrow-right mega-menu-arrow"></i>
                             </a>
                             <a href="#" class="mega-menu-item">
                                 <div class="mega-menu-item-icon"><i class="fas fa-chalkboard-teacher"></i></div>
                                 <div class="mega-menu-item-text">
-                                    <div class="mega-menu-item-title">강의 번역</div>
+                                    <div class="mega-menu-item-title">실시간 번역</div>
                                     <div class="mega-menu-item-desc">라이브 번역 및 자막</div>
                                 </div>
                                 <i class="fas fa-arrow-right mega-menu-arrow"></i>
@@ -125,13 +129,17 @@
                                 <i class="fas fa-question-circle"></i>
                                 <span>자주 묻는 질문</span>
                             </a>
-                            <a href="${htmlPath}features.html" class="mega-submenu-item">
+                            <a href="${htmlPath}tools.html" class="mega-submenu-item">
                                 <i class="fas fa-tools"></i>
                                 <span>도구</span>
                             </a>
-                            <a href="${htmlPath}security.html" class="mega-submenu-item">
+                            <a href="${htmlPath}legal.html" class="mega-submenu-item">
+                                <i class="fas fa-gavel"></i>
+                                <span>법률</span>
+                            </a>
+                            <a href="${htmlPath}privacy.html" class="mega-submenu-item">
                                 <i class="fas fa-user-shield"></i>
-                                <span>법률 & 개인 정보 보호</span>
+                                <span>개인정보보호</span>
                             </a>
                             <a href="${ax2HomePath}poem/index.html" class="mega-submenu-item" target="_blank">
                                 <i class="fas fa-envelope"></i>
@@ -154,6 +162,14 @@
                             </div>
                             <div class="mega-submenu-item language-option" data-lang="zh">
                                 <span>中文</span>
+                                <i class="fas fa-check" style="visibility: hidden;"></i>
+                            </div>
+                            <div class="mega-submenu-item language-option" data-lang="es">
+                                <span>Español</span>
+                                <i class="fas fa-check" style="visibility: hidden;"></i>
+                            </div>
+                            <div class="mega-submenu-item language-option" data-lang="fr">
+                                <span>Français</span>
                                 <i class="fas fa-check" style="visibility: hidden;"></i>
                             </div>
                         </div>

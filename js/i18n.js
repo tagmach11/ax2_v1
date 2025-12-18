@@ -17,9 +17,9 @@
             
             // 더보기 메뉴
             'menu.products': '기타 제품',
-            'menu.subtitle_gen': '자막생성',
-            'menu.subtitle_desc': 'AI 기반 실시간 번역',
-            'menu.lecture': '강의 번역',
+            'menu.subtitle_gen': '자막 생성',
+            'menu.subtitle_desc': '영상 자막 자동 생성',
+            'menu.lecture': '실시간 번역',
             'menu.lecture_desc': '라이브 번역 및 자막',
             'menu.price': '가격',
             'menu.security': '보안',
@@ -29,7 +29,8 @@
             'menu.language': '언어',
             'menu.faq': '자주 묻는 질문',
             'menu.tools': '도구',
-            'menu.legal': '법률 & 개인 정보 보호',
+            'menu.legal': '법률',
+            'menu.privacy': '개인정보보호',
             'menu.contact': '문의',
             
             // 메인 페이지
@@ -116,9 +117,9 @@
             
             // More menu
             'menu.products': 'Other Products',
-            'menu.subtitle_gen': 'Subtitles',
-            'menu.subtitle_desc': 'AI-powered real-time translation',
-            'menu.lecture': 'Lecture Translation',
+            'menu.subtitle_gen': 'Subtitle Generation',
+            'menu.subtitle_desc': 'Automatic generation of video subtitles',
+            'menu.lecture': 'Real-time Translation',
             'menu.lecture_desc': 'Live translation & subtitles',
             'menu.price': 'Pricing',
             'menu.security': 'Security',
@@ -128,7 +129,8 @@
             'menu.language': 'Language',
             'menu.faq': 'FAQ',
             'menu.tools': 'Tools',
-            'menu.legal': 'Legal & Privacy',
+            'menu.legal': 'Legal',
+            'menu.privacy': 'Privacy',
             'menu.contact': 'Contact',
             
             // Main page
@@ -216,8 +218,8 @@
             // その他メニュー
             'menu.products': 'その他の製品',
             'menu.subtitle_gen': '字幕生成',
-            'menu.subtitle_desc': 'AIリアルタイム翻訳',
-            'menu.lecture': '講義翻訳',
+            'menu.subtitle_desc': '動画字幕自動生成',
+            'menu.lecture': 'リアルタイム翻訳',
             'menu.lecture_desc': 'ライブ翻訳と字幕',
             'menu.price': '料金',
             'menu.security': 'セキュリティ',
@@ -227,7 +229,8 @@
             'menu.language': '言語',
             'menu.faq': 'よくある質問',
             'menu.tools': 'ツール',
-            'menu.legal': '法的情報とプライバシー',
+            'menu.legal': '法的情報',
+            'menu.privacy': 'プライバシー',
             'menu.contact': 'お問い合わせ',
             
             // メインページ
@@ -315,8 +318,8 @@
             // 更多菜单
             'menu.products': '其他产品',
             'menu.subtitle_gen': '字幕生成',
-            'menu.subtitle_desc': 'AI实时翻译',
-            'menu.lecture': '讲座翻译',
+            'menu.subtitle_desc': '视频字幕自动生成',
+            'menu.lecture': '实时翻译',
             'menu.lecture_desc': '实时翻译和字幕',
             'menu.price': '价格',
             'menu.security': '安全',
@@ -326,7 +329,8 @@
             'menu.language': '语言',
             'menu.faq': '常见问题',
             'menu.tools': '工具',
-            'menu.legal': '法律和隐私',
+            'menu.legal': '法律',
+            'menu.privacy': '隐私',
             'menu.contact': '联系我们',
             
             // 主页
@@ -399,6 +403,206 @@
             'pricing.pro': '专业',
             'pricing.subscribe': '订阅',
             'pricing.current': '当前方案'
+        },
+        es: {
+            // Navegación
+            'nav.subtitle': 'Subtítulos',
+            'nav.pricing': 'Precios',
+            'nav.guide': 'Guía',
+            'nav.login': 'Iniciar sesión',
+            'nav.signup': 'Registrarse',
+            'nav.logout': 'Cerrar sesión',
+            'nav.mywork': 'Mi trabajo',
+            'nav.remaining': 'min restantes',
+            
+            // Menú más
+            'menu.products': 'Otros productos',
+            'menu.subtitle_gen': 'Generación de subtítulos',
+            'menu.subtitle_desc': 'Generación automática de subtítulos de video',
+            'menu.lecture': 'Traducción en tiempo real',
+            'menu.lecture_desc': 'Traducción y subtítulos en vivo',
+            'menu.price': 'Precios',
+            'menu.security': 'Seguridad',
+            'menu.features': 'Características',
+            'menu.about': 'Acerca de nosotros',
+            'menu.help': 'Ayuda',
+            'menu.language': 'Idioma',
+            'menu.faq': 'Preguntas frecuentes',
+            'menu.tools': 'Herramientas',
+            'menu.legal': 'Legal',
+            'menu.privacy': 'Privacidad',
+            'menu.contact': 'Contacto',
+            
+            // Página principal
+            'main.title': 'Generación automática de subtítulos',
+            'main.subtitle': 'Genere subtítulos precisos rápidamente.',
+            'main.dropzone': 'Arrastre archivos aquí o haga clic para subir',
+            'main.supported': 'Formatos soportados: MP4, AVI, MOV, MKV (Máx. 500MB)',
+            
+            // Menú desplegable
+            'dropdown.edit': 'Editar perfil',
+            'dropdown.password': 'Cambiar contraseña',
+            'dropdown.payment': 'Información de pago',
+            
+            // Común
+            'common.free': 'Gratis',
+            'common.student': 'Estudiante',
+            'common.general': 'Estándar',
+            'common.pro': 'Pro',
+            
+            // index.html
+            'index.title': 'Generación automática de subtítulos',
+            'index.subtitle': 'Genere subtítulos precisos rápidamente.',
+            'index.dropzone': 'Arrastre archivos aquí o haga clic para subir',
+            'index.fileinfo': 'MP4, MOV, AVI (Máx. 2GB)',
+            'index.settings': 'Configuración de traducción',
+            'index.original': 'Idioma original',
+            'index.target': 'Idioma de destino',
+            'index.autodetect': 'Detección automática',
+            'index.generate': 'Generar subtítulos',
+            
+            // guide.html
+            'guide.title': 'Guía de usuario',
+            'guide.subtitle.title': 'Generar subtítulos',
+            'guide.step1.title': 'Subir video',
+            'guide.step1.desc': 'Arrastre y suelte o haga clic para subir su archivo de video.',
+            'guide.step2.title': 'Configuración de idioma',
+            'guide.step2.desc': 'Seleccione el idioma original y el idioma de destino.',
+            'guide.step3.title': 'Generar subtítulos',
+            'guide.step3.desc': 'Haga clic en generar y la IA creará automáticamente los subtítulos.',
+            
+            // mypage.html
+            'mypage.title': 'Mi página',
+            'mypage.profile': 'Editar perfil',
+            'mypage.password': 'Cambiar contraseña',
+            'mypage.payment': 'Información de pago',
+            'mypage.withdraw': 'Eliminar cuenta',
+            'mypage.nickname': 'Apodo',
+            'mypage.email': 'Correo electrónico',
+            'mypage.save': 'Guardar',
+            'mypage.current_pw': 'Contraseña actual',
+            'mypage.new_pw': 'Nueva contraseña',
+            'mypage.confirm_pw': 'Confirmar contraseña',
+            'mypage.change': 'Cambiar',
+            
+            // storage.html
+            'storage.title': 'Mi trabajo',
+            'storage.new': 'Comenzar nuevo',
+            'storage.total': 'Tareas totales',
+            'storage.completed': 'Completadas',
+            'storage.video_time': 'Tiempo total de video',
+            'storage.monthly': 'Este mes',
+            'storage.space': 'Almacenamiento',
+            'storage.used': 'Usado',
+            
+            // pricing.html
+            'pricing.title': 'Precios',
+            'pricing.free': 'Gratis',
+            'pricing.student': 'Estudiante',
+            'pricing.general': 'Estándar',
+            'pricing.pro': 'Pro',
+            'pricing.subscribe': 'Suscribirse',
+            'pricing.current': 'Plan actual'
+        },
+        fr: {
+            // Navigation
+            'nav.subtitle': 'Sous-titres',
+            'nav.pricing': 'Tarifs',
+            'nav.guide': 'Guide',
+            'nav.login': 'Connexion',
+            'nav.signup': 'S\'inscrire',
+            'nav.logout': 'Déconnexion',
+            'nav.mywork': 'Mon travail',
+            'nav.remaining': 'min restantes',
+            
+            // Menu plus
+            'menu.products': 'Autres produits',
+            'menu.subtitle_gen': 'Génération de sous-titres',
+            'menu.subtitle_desc': 'Génération automatique de sous-titres vidéo',
+            'menu.lecture': 'Traduction en temps réel',
+            'menu.lecture_desc': 'Traduction et sous-titres en direct',
+            'menu.price': 'Tarifs',
+            'menu.security': 'Sécurité',
+            'menu.features': 'Fonctionnalités',
+            'menu.about': 'À propos',
+            'menu.help': 'Aide',
+            'menu.language': 'Langue',
+            'menu.faq': 'FAQ',
+            'menu.tools': 'Outils',
+            'menu.legal': 'Légal',
+            'menu.privacy': 'Confidentialité',
+            'menu.contact': 'Contact',
+            
+            // Page principale
+            'main.title': 'Génération automatique de sous-titres',
+            'main.subtitle': 'Générez des sous-titres précis rapidement.',
+            'main.dropzone': 'Glissez-déposez des fichiers ou cliquez pour télécharger',
+            'main.supported': 'Formats pris en charge: MP4, AVI, MOV, MKV (Max 500MB)',
+            
+            // Menu déroulant
+            'dropdown.edit': 'Modifier le profil',
+            'dropdown.password': 'Changer le mot de passe',
+            'dropdown.payment': 'Informations de paiement',
+            
+            // Commun
+            'common.free': 'Gratuit',
+            'common.student': 'Étudiant',
+            'common.general': 'Standard',
+            'common.pro': 'Pro',
+            
+            // index.html
+            'index.title': 'Génération automatique de sous-titres',
+            'index.subtitle': 'Générez des sous-titres précis rapidement.',
+            'index.dropzone': 'Glissez-déposez des fichiers ou cliquez pour télécharger',
+            'index.fileinfo': 'MP4, MOV, AVI (Max 2GB)',
+            'index.settings': 'Paramètres de traduction',
+            'index.original': 'Langue originale',
+            'index.target': 'Langue cible',
+            'index.autodetect': 'Détection automatique',
+            'index.generate': 'Générer les sous-titres',
+            
+            // guide.html
+            'guide.title': 'Guide utilisateur',
+            'guide.subtitle.title': 'Générer des sous-titres',
+            'guide.step1.title': 'Télécharger la vidéo',
+            'guide.step1.desc': 'Glissez-déposez ou cliquez pour télécharger votre fichier vidéo.',
+            'guide.step2.title': 'Paramètres de langue',
+            'guide.step2.desc': 'Sélectionnez la langue originale et la langue cible.',
+            'guide.step3.title': 'Générer des sous-titres',
+            'guide.step3.desc': 'Cliquez sur générer et l\'IA créera automatiquement les sous-titres.',
+            
+            // mypage.html
+            'mypage.title': 'Ma page',
+            'mypage.profile': 'Modifier le profil',
+            'mypage.password': 'Changer le mot de passe',
+            'mypage.payment': 'Informations de paiement',
+            'mypage.withdraw': 'Supprimer le compte',
+            'mypage.nickname': 'Pseudonyme',
+            'mypage.email': 'E-mail',
+            'mypage.save': 'Enregistrer',
+            'mypage.current_pw': 'Mot de passe actuel',
+            'mypage.new_pw': 'Nouveau mot de passe',
+            'mypage.confirm_pw': 'Confirmer le mot de passe',
+            'mypage.change': 'Changer',
+            
+            // storage.html
+            'storage.title': 'Mon travail',
+            'storage.new': 'Commencer nouveau',
+            'storage.total': 'Tâches totales',
+            'storage.completed': 'Terminées',
+            'storage.video_time': 'Temps vidéo total',
+            'storage.monthly': 'Ce mois-ci',
+            'storage.space': 'Stockage',
+            'storage.used': 'Utilisé',
+            
+            // pricing.html
+            'pricing.title': 'Tarifs',
+            'pricing.free': 'Gratuit',
+            'pricing.student': 'Étudiant',
+            'pricing.general': 'Standard',
+            'pricing.pro': 'Pro',
+            'pricing.subscribe': 'S\'abonner',
+            'pricing.current': 'Plan actuel'
         }
     };
 
@@ -610,7 +814,8 @@
             if (helpItems[0]) helpItems[0].textContent = trans['menu.faq'];
             if (helpItems[1]) helpItems[1].textContent = trans['menu.tools'];
             if (helpItems[2]) helpItems[2].textContent = trans['menu.legal'];
-            if (helpItems[3]) helpItems[3].textContent = trans['menu.contact'];
+            if (helpItems[3]) helpItems[3].textContent = trans['menu.privacy'];
+            if (helpItems[4]) helpItems[4].textContent = trans['menu.contact'];
         }
         
         // 사용자 드롭다운 메뉴
